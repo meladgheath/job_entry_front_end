@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Management from "./Management";
-import Department from "./Department";
-import HH from "./HH";
-import Employment from "./Employment";
-import Positions from "./Positions";
-import Emp_transactions from "./Emp_transactions";
-import Info from "./Info";
-import Stander from "./Stander";
-import Rating from "./Rating";
-import ManagerReport from "./ManagerReport";
-import Profiles from "./Profiles";
-
 import Restrictions from "./Restrictions";
 import PrintPage from "./PrintPage";
+import Account from "./account";
 
 const Menu = (props) => {
     const { children, items } = props
@@ -57,6 +47,22 @@ const Sidebar = () => {
 
     const mohasaba = [
         {
+            href: 'javascript:void(0)',
+            name: 'الحسابات المصرفية',
+            icon: <svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg" strokeWidth={1.5} className="w-5 h-5" stroke="currentColor"
+                       fill="none">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M18.68,8.18C18.68,13.19,12,19,12,19S5.32,13.19,5.32,8.18a6.68,6.68,0,0,1,13.36,0Z" />
+                <path className="cls-1"
+                      d="M14.86,6.27H11.52A1.43,1.43,0,0,0,10.09,7.7h0a1.43,1.43,0,0,0,1.43,1.44h1a1.43,1.43,0,0,1,1.43,1.43h0A1.43,1.43,0,0,1,12.48,12H9.14" />
+                <line className="cls-1" x1="12" y1="4.36" x2="12" y2="6.27"></line>
+                <line className="cls-1" x1="12" y1="12" x2="12" y2="13.91"></line>
+                <polyline className="cls-1"
+                          points="16.52 13.91 19.64 13.91 22.5 22.5 1.5 22.5 4.36 13.91 7.49 13.91"></polyline>
+            </svg>,
+            ev:'account'
+        },
+        {
             href: '#',
             name: 'الإدارات/الفروع',
             icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -80,16 +86,16 @@ const Sidebar = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
             </svg>,
             ev:'print'
-        }
-       /* {
-            href: '#',
-            name: 'Page',
-            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
-            </svg>
-            ,
-            ev:'page'
-        },*/
+        },
+        /* {
+             href: '#',
+             name: 'Page',
+             icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0 0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+             </svg>
+             ,
+             ev:'page'
+         },*/
     ]
     const navigation = [
         {
@@ -244,7 +250,9 @@ const Sidebar = () => {
                 return <Restrictions />
             case 'print' :
                 return <PrintPage/>
-            case 'Department' :
+            case 'account' :
+                return <Account />
+            /*case 'Department' :
                 return <Department/>
             case 'Employment' :
                 return <Employment/>
@@ -263,7 +271,7 @@ const Sidebar = () => {
             case 'pp' :
                 return <Profiles/>
             case 'hh':
-                return <HH/>
+                return <HH/>*/
             default:
                 return null;
         }
@@ -326,7 +334,11 @@ const Sidebar = () => {
                         <ul className="text-sm font-medium flex-1">
                             {
                                 mohasaba.map((item, idx) => (
+
+
                                     <li key={idx}>
+                                        {(idx == 2 ) &&<div className="pt-2 mt-2 border-t">
+                                        </div>}
                                         <a href='#'
                                            className="flex items-center gap-x-2 text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                                            onClick={() => setCurrentPage(item.ev)}>
@@ -338,6 +350,7 @@ const Sidebar = () => {
                                 ))
                             }
                         </ul>
+
                         {/*<div className="pt-2 mt-2 border-t">
                         </div>
                         <ul className="text-sm font-medium flex-1">

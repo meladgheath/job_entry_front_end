@@ -1,7 +1,7 @@
 import Title from "../component/Title";
 import Inputs from "../component/Inputs";
 import Btn from "../component/Btn";
-import Tables from "../component/Tables";
+
 import {useEffect, useRef, useState} from "react";
 import LargeInput from "../component/LargeInput";
 import useFetch from "../controller/useFetch";

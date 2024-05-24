@@ -1,53 +1,70 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useFetchwithID from "../controller/useFetchwithID";
 import wahda_logo from '../icons/logo.svg'
 import MyUrl from "../controller/url";
+import Btn from "../component/Btn";
+
+import {convert} from "../controller/word";
 
 
 const A5 = () => {
 
 const location = useLocation();
 const query = new URLSearchParams(location.search);
+const [amountBefore , setAmountBefore] = useState()
+const [amountAfter , setAmountAfter] = useState()
 
-
-
-    const containerStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-    };
     const kyd = {
         position: 'absolute',
-        right: '10%',
-        top:'10%',
-        width: '150px',
-        height: '150px',
-        padding:'3.5%',
-        border: '1px solid ',
+        right: '0%',
+        top:'0%',
+        // width: '150px',
+        // height: '150px',
+        padding:'2%',
+        fontFamily: 'Montserrat',
+        fontSize: '25px',
+        fontWeight: 'bold',
+        // border: '1px solid ',
+    }
+    const account_detail = {
+        position: 'absolute',
+        right: '0%',
+        bottom:'0%',
+        padding:'2%',
+        fontFamily: 'Montserrat',
+        fontSize: '25px',
+        fontWeight: 'bold',
     }
     const money = {
         position: 'absolute',
-        left: '10%',
-        bottom:'15%',
-        width: '150px',
-        height: '150px',
-        padding:'2%',
-        border: '1px solid ',
+        right: '4%',
+        bottom:'5%',
+        fontFamily: 'Montserrat',
+        fontSize: '25px',
+        fontWeight: 'bold',
     }
-    const names = {
+    const money_letter = {
+        position: 'absolute',
+        right: '4%',
+        bottom:'25%',
+        fontFamily: 'Montserrat',
+        fontSize: '18px',
+        // fontWeight: 'bold',
+    }
+    const dates = {
         position: 'absolute',
         right: '32%',
         top: '15%'
     }
     const job_entry = {
         position: 'absolute',
-        right: '75px',
-        top: '60px',
+        right: '5%',
+        top: '5%',
         fontFamily: 'sans-serif',
-        fontSize: '25px',
+        fontSize: '20px',
         fontWeight: 'bold',
+        textAlign: 'right',
     }
     const account = {
         position: 'absolute',
@@ -57,131 +74,165 @@ const query = new URLSearchParams(location.search);
         fontSize: '25px',
         fontWeight: 'bold',
     }
-    const management = {
+    const user_name = {
         position: 'absolute',
         right: '15%',
-        bottom:'29%',
-
+        top:'10%',
+        fontFamily: 'sans-serif',
+        fontSize: '20px',
+        fontWeight: 'bold',
     }
     const sign = {
         position: 'absolute',
         right: '15%',
         bottom:'22%',
+        fontFamily: 'sans-serif',
+        fontSize: '20px',
+        fontWeight: 'bold',
 
     }
-    /*const squre = {
-        position: 'absolute',
-        left: '2%',
-        bottom:'2%',
 
-        width: '95%',
-        height: '95%',
-        // padding:'2%',
-        // border: '1px solid ',
-    }*/
+    const money_title = {
+        position: 'absolute',
+        left: '45%',
+        top: '0%',
+        fontFamily: 'Montserrat',
+        fontSize: '25px',
+        fontWeight: 'bold',
+        paddingTop: '2%',
+
+    }
+    const crosLine = {
+        position: 'absolute',
+        left: '0%',
+        right: '0%',
+        top: '25%',
+        // paddingTop: '2%',
+        border: '1px solid ',
+    }
     const first_squre = {
         position: 'absolute',
-        left: '2%',
-        right:'2%' ,
-        top:'1%',
+        left: '3%',
+        // right:'2%' ,
+        top:'2%',
 
-        width: '95%',
+        width: '93%',
         height: '35%',
         padding:'5%',
         border: '1px solid ',
     }
     const second_squre = {
         position: 'absolute',
-        left: '2%',
-        right:'2%' ,
-        top:'37%',
-        // bottom:'2%',
-
-        width: '95%',
+        left: '3%',
+        top:'38%',
+        width: '93%',
         height: '30%',
         padding:'5%',
         border: '1px solid ',
     }
     const tird_squre = {
         position: 'absolute',
-        // left: '2%',
-        right:'3%' ,
-        top:'68%',
-        // bottom:'2%',
-
-        width: '50%',
-        height: '31%',
+        right:'4%' ,
+        top:'69%',
+        width: '49%',
+        height: '30%',
         padding:'5%',
         border: '1px solid ',
     }
     const fourth_squre = {
         position: 'absolute',
-        left :'2%' ,
-        top:'68%',
-        width: '44%',
-        height: '31%',
+        left :'3%' ,
+        top:'69%',
+        width: '43%',
+        height: '30%',
         padding:'5%',
         border: '1px solid ',
     }
 
     const image_size = {
-        // position : 'relative',
         position:'absolute',
-        // left: '1%',
-        // top:'0%',
-        // padding: '2%',
-        // bottom: '10%',
-        left:'15px',
-        top: '1px',
-        width: '35%',
-        height: '65%',
+        left:'5%',
+        top: '10px',
+        width: '30%',
+        height: '60%',
+    }
+    const bb = {
+        position: 'absolute',
+        left:'0%'
     }
 
+
     const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/',query.get('id'))
+
+    useEffect(() => {
+        if (loading) {
+            const number = data[0].debit + data[0].credit
+
+            const numberString = number.toString();
+            const [beforeDot, afterDot] = numberString.split('.');
+
+            setAmountBefore(beforeDot); // Output: "521480"
+            setAmountAfter(afterDot); // Output: "5210"
+
+        }
+    }, [loading]);
 
 
     return (
         <>
             {/*<p>{query.get('id')}</p>*/}
             {/*{JSON.stringify(data)}*/}
+
             {loading &&
                 // <div style={squre}>
                         <div>
                     <div style={first_squre}>
-
-                        <div style={job_entry}>
-                            <p>{data[0].resID} : رقم القيد </p>
-                        </div>
                         <img src={wahda_logo} style={image_size} alt="wahda"/>
-
                         <div style={kyd}>
                             <p>قيد</p>
-                            {(data[0].debit != 0) ? '  خصم' : ' إضافة'}
+                            <p>{(data[0].debit != 0) ? '  خصم' : ' إضافة'}</p>
                         </div>
-                        <div style={names}>
-                            <p>{data[0].name}</p>
+                        <div style={account_detail}>
+                            <p>{data[0].accountName}</p>
+                                <p>{data[0].account} : رقم الحساب </p>
                         </div>
-
-                    </div>
-                    <div style={second_squre}>
-                        <div style={account}>
-                            <p>{data[0].account} : رقم الحساب </p>
+                        <div style={dates}>
+                            <p> {new Date(data[0].rest_date).toISOString().split('T')[0]}  :  التـــاريخ  </p>
                         </div>
                     </div>
-                    <div style={tird_squre}>
-                        <div style={management}>
-                            <p> إدارة/فرع : {data[0].management_rel.name} </p>
+                            <div style={second_squre}>
+                                <div style={job_entry}>
+                                    <p>{data[0].resID} : رقم القيد </p>
+                                    <p>{data[0].name}</p>
+                                </div>
+                            </div>
+                            <div style={tird_squre}>
+                                <div style={user_name}>
+                                <p> مســـتخدم النـــظام  :  ميلاد التاورغي   </p>
                         </div>
                         <div style={sign}>
-                            <p>التـــوقيـــع</p>
+                            <p>.........................................  : التــــوقيـــع  </p>
                         </div>
                     </div>
                     <div style={fourth_squre}>
+                        <div style={money_title}>
+                            قيمـــــة القيد
+                        </div>
+                        <hr style={crosLine}/>
+
+                        <div style={money_letter}>
+
+                            {convert(parseFloat(amountBefore)) +   "دينار و " + convert(parseFloat(amountAfter)) + "درهم"}
+                        </div>
                         <div style={money}>
-                            <p>المبلغ</p>
-                            <p>{parseFloat(data[0].debit + data[0].credit)}</p>
+                            {/*<p>المبلغ</p>*/}
+                            <p>  { "  دل "  + amountBefore+"."+amountAfter  }  </p>
                         </div>
                     </div>
+                            {/*<button type='button' className='b' onClick={()=> window.print()}>here</button>*/}
+                            <div style={bb}>
+                            <Btn  type='button' caption='طبــاعة' click={()=> window.print()} />
+                            </div>
                         </div>
 
             }
@@ -224,13 +275,17 @@ const styles = `
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
-  
-  .no-print {
+  button {
     display: none !important;
   }
+  .no-print {
+    display: none !important;
+    
+  }
   @page {
-    size: auto;   /* auto is the initial value */
-    margin: 0;  /* this affects the margin in the printer settings */
+    size: auto;
+     size : A5 landscape;
+     margin: 0;  
 }
 }
 `;

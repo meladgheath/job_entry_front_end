@@ -10,6 +10,7 @@ import Tables from "../component/Tables";
 import useFetchwithID from "../controller/useFetchwithID";
 
 import MyUrl from "../controller/url";
+import LargeInput from "../component/LargeInput";
 
 
 const Restrictions = () => {
@@ -23,6 +24,7 @@ const Restrictions = () => {
     const debit = useRef(null)
     const money = useRef(null)
     const account = useRef(null)
+    const accountName = useRef(null)
 
 
     const [tadata , taerr] = useFetchwithID(MyUrl+'/restrictions/',restID)
@@ -44,7 +46,9 @@ const Restrictions = () => {
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({id:id.current.value , name:name.current.value ,managementID:manag.current.value,credit:c,debit:d,account:account.current.value})
+            body:JSON.stringify({id:id.current.value , name:name.current.value ,managementID:manag.current.value,
+                credit:c,debit:d,
+                account:account.current.value,accountName:accountName.current.value,})
         }).then(res => res.json())
             .then(result => {
                 if (result.success)
@@ -80,7 +84,7 @@ return (
                 <Title title='شاشــــــة القيود' subtitle='' />
                 <form onSubmit={fun}>
                     <Inputs r={id} name='ID' holder='رقم القيد' rtl={true} label='رقم القيد' Change={(e)=> setRestID(e.target.value) }/>
-                    <Inputs name='name' holder='وصــــف القيد' label='مسمـــي القيد' rtl={true} r={name} />
+                    <LargeInput name='name' holder=' وصــــف القيد /البيــــــــــــان' label='مسمـــي القيد' rtl={true} r={name} />
                     <Selects r={manag} data={data} label='الإدارت/الفروع' rtl={true}/>
 
                     <ul className="grid w-full gap-6 md:grid-cols-2">
@@ -89,6 +93,7 @@ return (
                     </ul>
                     <Inputs name='money' rtl={true} label='القيمة' holder=' القيمة المدخلة ' r={money} />
                     <Inputs name='account' rtl={true} label='رقم الحساب' holder='رقــــم الحــســـــاب' r={account} />
+                    <Inputs name='accountName' rtl={true} label='مسمي الحســاب' holder='اســـــم الحــســـــاب' r={accountName} />
                     <Btn type='submit' caption='SAVE'/>
                     <br/>
                     <Btn type='reset' caption='RESET'/>
