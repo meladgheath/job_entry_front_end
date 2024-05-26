@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useFetchwithID from "../controller/useFetchwithID";
 import wahda_logo from '../icons/logo.svg'
@@ -19,8 +19,7 @@ const [amountAfter , setAmountAfter] = useState()
         position: 'absolute',
         right: '0%',
         top:'0%',
-        // width: '150px',
-        // height: '150px',
+
         padding:'2%',
         fontFamily: 'Montserrat',
         fontSize: '25px',
@@ -29,12 +28,13 @@ const [amountAfter , setAmountAfter] = useState()
     }
     const account_detail = {
         position: 'absolute',
-        right: '0%',
+        right: '10%',
         bottom:'0%',
         padding:'2%',
         fontFamily: 'Montserrat',
         fontSize: '25px',
         fontWeight: 'bold',
+        textAlign: 'right'
     }
     const money = {
         position: 'absolute',
@@ -47,7 +47,7 @@ const [amountAfter , setAmountAfter] = useState()
     const money_letter = {
         position: 'absolute',
         right: '4%',
-        bottom:'25%',
+        top: '35%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
         // fontWeight: 'bold',
@@ -62,7 +62,15 @@ const [amountAfter , setAmountAfter] = useState()
         right: '5%',
         top: '5%',
         fontFamily: 'sans-serif',
-        fontSize: '20px',
+        fontSize: '18px',
+        padding: '1%',
+    }
+    const job_entry_id = {
+        position: 'absolute',
+        right: '10%',
+        top: '5%',
+        fontFamily: 'sans-serif',
+        fontSize: '18px',
         fontWeight: 'bold',
         textAlign: 'right',
     }
@@ -78,16 +86,28 @@ const [amountAfter , setAmountAfter] = useState()
         position: 'absolute',
         right: '15%',
         top:'10%',
-        fontFamily: 'sans-serif',
-        fontSize: '20px',
-        fontWeight: 'bold',
+
     }
+    const head_department = {
+        position: 'absolute',
+        right: '25%',
+        top:'10%',
+    }
+    /*const management_name = {
+        position: 'absolute',
+        right: '25%',
+        top:'10%',
+        fontFamily: 'sans-serif',
+        fontSize: '25px',
+        fontWeight: 'bold',
+    }*/
     const sign = {
         position: 'absolute',
-        right: '15%',
-        bottom:'22%',
+        right: '10%',
+        bottom:'25%',
+        textAlign: 'right',
         fontFamily: 'sans-serif',
-        fontSize: '20px',
+        fontSize: '13px',
         fontWeight: 'bold',
 
     }
@@ -117,38 +137,70 @@ const [amountAfter , setAmountAfter] = useState()
         top:'2%',
 
         width: '93%',
-        height: '35%',
+        height: '30%',
         padding:'5%',
         border: '1px solid ',
     }
     const second_squre = {
         position: 'absolute',
-        left: '3%',
-        top:'38%',
-        width: '93%',
-        height: '30%',
+        right: '4%',
+        top:'33%',
+        width: '55%',
+        height: '38.5%',
         padding:'5%',
         border: '1px solid ',
+        // textAlign: 'justify',
+        textAlign: 'right',
+        // direction:'rtl'
     }
     const tird_squre = {
         position: 'absolute',
         right:'4%' ,
-        top:'69%',
-        width: '49%',
-        height: '30%',
+        top:'72%',
+        width: '30%',
+        height: '25%',
         padding:'5%',
         border: '1px solid ',
+
+        fontFamily: 'sans-serif',
+        fontSize: '14px',
+        fontWeight: 'bold',
     }
     const fourth_squre = {
         position: 'absolute',
         left :'3%' ,
-        top:'69%',
-        width: '43%',
-        height: '30%',
+        top:'33%',
+        width: '37.5%',
+        height: '38.5%',
         padding:'5%',
         border: '1px solid ',
     }
+    const head_department_sign_squre = {
+        position: 'absolute',
+        right:'34.5%' ,
+        top:'72%',
+        width: '30%',
+        height: '25%',
+        padding:'5%',
+        border: '1px solid ',
 
+        fontFamily: 'sans-serif',
+        fontSize: '18px',
+        fontWeight: 'bold',
+    }
+    const management_sing_squre = {
+        position: 'absolute',
+        right:'65%' ,
+        top:'72%',
+        width: '32%',
+        height: '25%',
+        padding:'5%',
+        border: '1px solid ',
+
+        fontFamily: 'sans-serif',
+        fontSize: '18px',
+        fontWeight: 'bold',
+    }
     const image_size = {
         position:'absolute',
         left:'5%',
@@ -164,10 +216,10 @@ const [amountAfter , setAmountAfter] = useState()
 
     const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/',query.get('id'))
 
+
     useEffect(() => {
         if (loading) {
             const number = data[0].debit + data[0].credit
-
             const numberString = number.toString();
             const [beforeDot, afterDot] = numberString.split('.');
 
@@ -177,16 +229,14 @@ const [amountAfter , setAmountAfter] = useState()
         }
     }, [loading]);
 
-
     return (
         <>
-            {/*<p>{query.get('id')}</p>*/}
-            {/*{JSON.stringify(data)}*/}
-
             {loading &&
-                // <div style={squre}>
-                        <div>
+                <div>
                     <div style={first_squre}>
+                        <div style={job_entry_id}>
+                        <p>{data[0].resID} : رقم القيد </p>
+                        </div>
                         <img src={wahda_logo} style={image_size} alt="wahda"/>
                         <div style={kyd}>
                             <p>قيد</p>
@@ -194,24 +244,25 @@ const [amountAfter , setAmountAfter] = useState()
                         </div>
                         <div style={account_detail}>
                             <p>{data[0].accountName}</p>
-                                <p>{data[0].account} : رقم الحساب </p>
+                            <p>{data[0].account} : رقم الحساب </p>
+
                         </div>
                         <div style={dates}>
-                            <p> {new Date(data[0].rest_date).toISOString().split('T')[0]}  :  التـــاريخ  </p>
+                            <p> {new Date(data[0].rest_date).toISOString().split('T')[0]} : التـــاريخ </p>
                         </div>
                     </div>
-                            <div style={second_squre}>
+                    <div style={second_squre}>
                                 <div style={job_entry}>
-                                    <p>{data[0].resID} : رقم القيد </p>
                                     <p>{data[0].name}</p>
                                 </div>
                             </div>
                             <div style={tird_squre}>
                                 <div style={user_name}>
-                                <p> مســـتخدم النـــظام  :  ميلاد التاورغي   </p>
+                                <p>  مســـتخدم النـــظام  :  ميلاد التاورغي   </p>
                         </div>
                         <div style={sign}>
-                            <p>.........................................  : التــــوقيـــع  </p>
+                            {/*<p>{username}</p>*/}
+                            <p>........................................  : التــــوقيـــع  </p>
                         </div>
                     </div>
                     <div style={fourth_squre}>
@@ -219,26 +270,39 @@ const [amountAfter , setAmountAfter] = useState()
                             قيمـــــة القيد
                         </div>
                         <hr style={crosLine}/>
-
                         <div style={money_letter}>
-
                             {convert(parseFloat(amountBefore)) +   "دينار و " + convert(parseFloat(amountAfter)) + "درهم"}
                         </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}
-                            <p>  { "  دل "  + amountBefore+"."+amountAfter  }  </p>
+                            <p>  { "  دل "  + amountBefore+"."+ ((amountAfter !== undefined) ? amountAfter : "" ) }  </p>
                         </div>
                     </div>
-                            {/*<button type='button' className='b' onClick={()=> window.print()}>here</button>*/}
-                            <div style={bb}>
-                            <Btn  type='button' caption='طبــاعة' click={()=> window.print()} />
-                            </div>
+                    <div style={head_department_sign_squre}>
+                        <div style={head_department}>
+                            <p>رئيــــس القســـم</p>
                         </div>
-
+                        <div style={sign}>
+                            {/*<p>{username}</p>*/}
+                            <p>...................................... : التــــوقيـــع </p>
+                        </div>
+                    </div>
+                    <div style={management_sing_squre}>
+                        <div style={head_department}>
+                            <p>مـــــديـــر إدراة المحــاسبـــة</p>
+                        </div>
+                        <div style={sign}>
+                            {/*<p>{username}</p>*/}
+                            <p>........................................ : التــــوقيـــع </p>
+                        </div>
+                    </div>
+                    <div style={bb}>
+                        <Btn type='button' caption='طبــاعة' click={() =>
+                            window.print()
+                        }/>
+                    </div>
+                        </div>
             }
-            {/*<div style={firstHorizontalLineStyle}></div>*/}
-            {/*<div style={secondHorizontalLineStyle}></div>*/}
-
         </>
     );
 };

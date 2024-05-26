@@ -1,19 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Management from "./Management";
 import Restrictions from "./Restrictions";
 import PrintPage from "./PrintPage";
 import Account from "./account";
+import {useBearStore} from "../controller/useBearStore";
+
+
 
 const Menu = (props) => {
     const { children, items } = props
     const [isOpened, setIsOpened] = useState(false)
+
+
     return (
         <div className="">
             <button className="w-full flex items-center justify-between text-gray-600 p-2 rounded-lg  hover:bg-gray-50 active:bg-gray-100 duration-150"
                     onClick={() => setIsOpened(!isOpened)}
             >
                 <div className="flex items-center gap-x-2">
-                    {children}
+                    <p>melad is here mother fucker </p>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`w-5 h-5 duration-150 ${isOpened ? 'rotate-180' : ''}`}>
                     <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
@@ -44,10 +49,12 @@ const Menu = (props) => {
 }
 
 const Sidebar = () => {
+    const username = useBearStore((state)=> state.username)
 
     const mohasaba = [
-        {
+        /*{
             href: 'javascript:void(0)',
+
             name: 'الحسابات المصرفية',
             icon: <svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg" strokeWidth={1.5} className="w-5 h-5" stroke="currentColor"
                        fill="none">
@@ -61,7 +68,7 @@ const Sidebar = () => {
                           points="16.52 13.91 19.64 13.91 22.5 22.5 1.5 22.5 4.36 13.91 7.49 13.91"></polyline>
             </svg>,
             ev:'account'
-        },
+        },*/
         {
             href: '#',
             name: 'الإدارات/الفروع',
@@ -240,6 +247,9 @@ const Sidebar = () => {
     }, [])
     const [currentPage, setCurrentPage] = useState('home');
 
+
+
+
     const renderPage = () => {
         switch (currentPage) {
             case 'home':
@@ -252,26 +262,6 @@ const Sidebar = () => {
                 return <PrintPage/>
             case 'account' :
                 return <Account />
-            /*case 'Department' :
-                return <Department/>
-            case 'Employment' :
-                return <Employment/>
-            case 'Position' :
-                return <Positions/>
-            case 'trans' :
-                return <Emp_transactions/>
-            case 'Info' :
-                return <Info/>
-            case 'Stander' :
-                return <Stander/>
-            case 'rating':
-                return <Rating/>
-            case 'report':
-                return <ManagerReport/>
-            case 'pp' :
-                return <Profiles/>
-            case 'hh':
-                return <HH/>*/
             default:
                 return null;
         }
@@ -290,11 +280,13 @@ const Sidebar = () => {
                                 <span
                                     className="block mt-px text-gray-600 text-xs"
                                 >
-                                    Hobby Plan
+                                    {username}
                                 </span>
+
                             </div>
                             <div className="relative flex-1 text-right">
-                                <button ref={profileRef} className="p-1.5 rounded-md text-gray-500 hover:bg-gray-50 active:bg-gray-100"
+                                <button ref={profileRef}
+                                        className="p-1.5 rounded-md text-gray-500 hover:bg-gray-50 active:bg-gray-100"
                                         onClick={() => setIsProfileActive(!isProfileActive)}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
