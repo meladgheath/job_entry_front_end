@@ -1,7 +1,10 @@
 import { create } from 'zustand'
-import {useShallow} from "zustand/react/shallow";
+
 
 export const useBearStore = create((set ) => ({
     username : null,
-    login : (username)=> set(()=>({username})),
+    name: null,
+    isLogin: false ,
+    login : (username , name)=> set(()=>({isLogin:true ,username , name})),
+    logout: ()=> set(()=> ({isLoading: false ,username: null , name: null}))
 }))

@@ -27,7 +27,7 @@ const Restrictions = () => {
     const accountName = useRef(null)
 
 
-    const [tadata , taerr] = useFetchwithID(MyUrl+'/restrictions/',restID)
+    const [tadata , taerr] = useFetchwithID(MyUrl+'/restrictions/'+restID)
     const [data , err ] = useFetch(MyUrl+'/management')
 
     const fun = (e)=> {

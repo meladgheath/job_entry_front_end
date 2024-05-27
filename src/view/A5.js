@@ -6,6 +6,7 @@ import MyUrl from "../controller/url";
 import Btn from "../component/Btn";
 
 import {convert} from "../controller/word";
+import {useBearStore} from "../controller/useBearStore";
 
 
 const A5 = () => {
@@ -14,6 +15,11 @@ const location = useLocation();
 const query = new URLSearchParams(location.search);
 const [amountBefore , setAmountBefore] = useState()
 const [amountAfter , setAmountAfter] = useState()
+
+    // const username = useBearStore((state) => state.username)
+    const name = useBearStore((state)=> state.name)
+    const username  = useBearStore((state) => state.username)
+
 
     const kyd = {
         position: 'absolute',
@@ -214,7 +220,7 @@ const [amountAfter , setAmountAfter] = useState()
     }
 
 
-    const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/',query.get('id'))
+    const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/'+query.get('id'))
 
 
     useEffect(() => {
@@ -258,7 +264,8 @@ const [amountAfter , setAmountAfter] = useState()
                             </div>
                             <div style={tird_squre}>
                                 <div style={user_name}>
-                                <p>  مســـتخدم النـــظام  :  ميلاد التاورغي   </p>
+
+                                <p dir='rtl'> مستخدم النظام  :  {name}</p>
                         </div>
                         <div style={sign}>
                             {/*<p>{username}</p>*/}

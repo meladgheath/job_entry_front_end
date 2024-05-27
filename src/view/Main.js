@@ -4,6 +4,8 @@ import Restrictions from "./Restrictions";
 import PrintPage from "./PrintPage";
 import Account from "./account";
 import {useBearStore} from "../controller/useBearStore";
+import UserInfo from "./UserInfo";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -50,6 +52,11 @@ const Menu = (props) => {
 
 const Sidebar = () => {
     const username = useBearStore((state)=> state.username)
+    const name = useBearStore((state)=> state.name)
+    const logout = useBearStore((state)=> state.logout)
+
+    const Navigator = useNavigate()
+
 
     const mohasaba = [
         /*{
@@ -94,6 +101,16 @@ const Sidebar = () => {
             </svg>,
             ev:'print'
         },
+        {
+            href: 'javascript:void(0)',
+            name: 'Users',
+            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path
+                    d="M17 11.8c-0.28-1.4-1.4-2.52-2.84-2.84-0.36-1.68-1.84-2.92-3.6-2.92h-6.88c-2.040 0-3.68 1.64-3.68 3.68v6.88c0 1.76 1.24 3.24 2.92 3.6 0.28 1.4 1.4 2.52 2.84 2.84 0.36 1.68 1.84 2.92 3.6 2.92h6.88c2.040 0 3.68-1.64 3.68-3.68v-6.88c0-1.76-1.24-3.24-2.92-3.6zM18.24 15.4v6.88c0 0.080 0 0.16 0 0.24-0.48-1.12-1.32-2.080-2.4-2.72 0.24-0.48 0.36-1 0.36-1.56 0-1.88-1.52-3.4-3.4-3.4s-3.4 1.52-3.4 3.4c0 0.56 0.12 1.080 0.36 1.56-1.080 0.64-1.88 1.6-2.4 2.72 0-0.080 0-0.16 0-0.24v-6.88c0-1.12 0.88-2 2-2h6.88c1.12 0 2 0.88 2 2zM11.040 18.28c0-0.96 0.76-1.72 1.72-1.72s1.72 0.76 1.72 1.72c0 0.96-0.76 1.72-1.72 1.72-0.92 0-1.72-0.76-1.72-1.72zM1.68 16.6v-6.88c0-1.12 0.88-2 2-2h6.88c0.8 0 1.48 0.48 1.8 1.16h-5.84c-2.040 0-3.68 1.64-3.68 3.68v5.88c-0.68-0.32-1.16-1.040-1.16-1.84zM4.52 19.44v-6.88c0-1.12 0.88-2 2-2h6.88c0.8 0 1.48 0.48 1.8 1.16h-5.84c-2.040 0-3.68 1.64-3.68 3.68v5.88c-0.68-0.32-1.16-1.040-1.16-1.84zM9.36 24.28c-0.28 0-0.52-0.040-0.76-0.16 0-0.040 0.040-0.080 0.040-0.12 0.28-1.24 1.12-2.32 2.28-2.92 0.56 0.36 1.2 0.56 1.88 0.56s1.36-0.2 1.88-0.56c1.16 0.6 2 1.64 2.28 2.92 0 0.040 0.040 0.080 0.040 0.12-0.24 0.080-0.48 0.16-0.76 0.16h-6.88z">
+                </path>
+            </svg>,
+            ev:'users'
+        }
         /* {
              href: '#',
              name: 'Page',
@@ -108,10 +125,12 @@ const Sidebar = () => {
         {
             href: 'javascript:void(0)',
             name: 'Rating',
-            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                       stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"/>
             </svg>,
-            ev:'rating'
+            ev: 'rating'
         },
         {
             href: 'javascript:void(0)',
@@ -262,10 +281,17 @@ const Sidebar = () => {
                 return <PrintPage/>
             case 'account' :
                 return <Account />
+            case 'users' :
+                return <UserInfo />
             default:
                 return null;
         }
     };
+
+    const onLogout = () => {
+        logout()
+        Navigator('/Login')
+    }
 
     return (
         <>
@@ -276,11 +302,11 @@ const Sidebar = () => {
                         <div className="w-full flex items-center gap-x-4">
                             {/*<img src="https://randomuser.me/api/portraits/women/79.jpg" className="w-10 h-10 rounded-full" />*/}
                             <div>
-                                <span className="block text-gray-700 text-sm font-semibold">Alivika tony</span>
+                                <span className="block text-gray-700 text-sm font-semibold">{name}</span>
                                 <span
                                     className="block mt-px text-gray-600 text-xs"
                                 >
-                                    {username}
+
                                 </span>
 
                             </div>
@@ -297,7 +323,7 @@ const Sidebar = () => {
                                     isProfileActive ? (
                                         <div className="absolute z-10 top-12 right-0 w-64 rounded-lg bg-white shadow-md border text-sm text-gray-600">
                                             <div className="p-2 text-left">
-                                                <span className="block text-gray-500/80 p-2">alivika@gmail.com</span>
+                                                {/*<span className="block text-gray-500/80 p-2">alivika@gmail.com</span>
                                                 <a href="javascript:void(0)" className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150">
                                                     Add another account
                                                 </a>
@@ -310,8 +336,10 @@ const Sidebar = () => {
                                                         <option>Dark</option>
                                                         <option>Light</option>
                                                     </select>
-                                                </div>
-                                                <button className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150">
+                                                </div>*/}
+                                                <button className="block w-full p-2 text-left rounded-md hover:bg-gray-50 active:bg-gray-100 duration-150"
+                                                        onClick={onLogout}
+                                                >
                                                     Logout
                                                 </button>
                                             </div>
@@ -326,9 +354,9 @@ const Sidebar = () => {
                         <ul className="text-sm font-medium flex-1">
                             {
                                 mohasaba.map((item, idx) => (
+                                    (item.ev !== 'users' || username === '104734') ?
+                                <li key={idx}>
 
-
-                                    <li key={idx}>
                                         {(idx == 2 ) &&<div className="pt-2 mt-2 border-t">
                                         </div>}
                                         <a href='#'
@@ -337,8 +365,7 @@ const Sidebar = () => {
                                             <div className="text-gray-500">{item.icon}</div>
                                             {item.name}
                                         </a>
-
-                                    </li>
+                                    </li> : <p></p>
                                 ))
                             }
                         </ul>

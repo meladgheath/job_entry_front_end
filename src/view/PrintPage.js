@@ -6,11 +6,16 @@ import Btn from "../component/Btn";
 import useFetchwithID from "../controller/useFetchwithID";
 
 import MyUrl from "../controller/url";
+import {useNavigate} from "react-router-dom";
+import {useBearStore} from "../controller/useBearStore";
 
 const PrintPage = () => {
 
     const id = useRef(null);
     const [restID ,  setRestID] = useState(null);
+
+    const name = useBearStore((state)=> state.name)
+    const Navigator = useNavigate()
 
     const fun = (e) => {
         e.preventDefault();
@@ -23,11 +28,14 @@ const PrintPage = () => {
         {name:'name'},
     ]
 
-    const [data , err] = useFetchwithID(MyUrl+'/restrictions/',restID)
+    const [data , err ] = useFetchwithID(MyUrl+'/restrictions/'+restID)
+
 
     const printBtn = (id)=> {
-        window.open('/mydoc?id='+id);
+        // window.open('/mydoc?id='+id);
     // , '_blank'
+
+        Navigator('/mydoc?id='+id)
     }
 
     return (
@@ -51,6 +59,7 @@ const PrintPage = () => {
                     </p>
 
                 </div>
+
                 <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
                     <table dir='rtl' className="w-full table-auto text-sm text-left">
                         <thead className="bg-gray-50 text-gray-600 font-medium border-b">
