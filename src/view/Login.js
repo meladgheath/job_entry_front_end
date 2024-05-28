@@ -36,7 +36,15 @@ const Login = ()=> {
                 }
                 else
                     throw new Error(result.message)
-            }).catch((err)=> setError(err.message))
+            }).catch((err)=>{
+                if (err.message === 'UNE')
+                    setError('تأكد من صحة رقم المستخدم')
+            else
+                if (err.message === 'PSE')
+                setError('أرجو التأكد من صحة رقم مرورك')
+            else
+                setError(err.message)
+        })
             /*.finally(() => {
                     username.current.value = ''
                     password.current.value = ''

@@ -27,8 +27,9 @@ const Restrictions = () => {
     const accountName = useRef(null)
 
 
-    const [tadata , taerr] = useFetchwithID(MyUrl+'/restrictions/'+restID)
-    const [data , err ] = useFetch(MyUrl+'/management')
+        const [tadata , taerr, isLoading] = useFetchwithID(MyUrl+'/restrictions/'+restID )
+        const [data , err ] = useFetch(MyUrl+'/management')
+
 
     const fun = (e)=> {
         e.preventDefault()
@@ -79,6 +80,7 @@ const Restrictions = () => {
 
 return (
     <>
+
         <div className="flex items-center justify-center p-12">
             <div className="mx-auto w-full max-w-[550px] bg-white">
                 <Title title='شاشــــــة القيود' subtitle='' />
@@ -94,15 +96,17 @@ return (
                     <Inputs name='money' rtl={true} label='القيمة' holder=' القيمة المدخلة ' r={money} />
                     <Inputs name='account' rtl={true} label='رقم الحساب' holder='رقــــم الحــســـــاب' r={account} />
                     <Inputs name='accountName' rtl={true} label='مسمي الحســاب' holder='اســـــم الحــســـــاب' r={accountName} />
+                    <p>{isLoading}</p>
                     <Btn type='submit' caption='SAVE'/>
                     <br/>
-                    <Btn type='reset' caption='RESET'/>
+                    <Btn type='reset' caption='RESET' />
 
                 </form>
             </div>
         </div>
+        {isLoading &&
         <Tables colums={colums} tableItems={tadata} toggle={['management_rel']} togglename={['name']}  delete_url={MyUrl+'/restrictions/'}/>
-
+        }
     </>
 )
 }

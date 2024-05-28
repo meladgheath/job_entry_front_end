@@ -15,6 +15,8 @@ const location = useLocation();
 const query = new URLSearchParams(location.search);
 const [amountBefore , setAmountBefore] = useState()
 const [amountAfter , setAmountAfter] = useState()
+const [type , setType ] = useState()
+    const [toggal , setToggle ] = useState()
 
     // const username = useBearStore((state) => state.username)
     const name = useBearStore((state)=> state.name)
@@ -23,10 +25,9 @@ const [amountAfter , setAmountAfter] = useState()
 
     const kyd = {
         position: 'absolute',
-        right: '0%',
-        top:'0%',
-
-        padding:'2%',
+        right: '1%',
+        top:'1%',
+        // padding:'2%',
         fontFamily: 'Montserrat',
         fontSize: '25px',
         fontWeight: 'bold',
@@ -34,11 +35,21 @@ const [amountAfter , setAmountAfter] = useState()
     }
     const account_detail = {
         position: 'absolute',
-        right: '10%',
+        right: '1.5%',
         bottom:'0%',
         padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '25px',
+        fontSize: '20px',
+        fontWeight: 'bold',
+        textAlign: 'right'
+    }
+    const isBransh = {
+        position: 'absolute',
+        right: '55%',
+        bottom:'0%',
+        padding:'2%',
+        fontFamily: 'Montserrat',
+        fontSize: '20px',
         fontWeight: 'bold',
         textAlign: 'right'
     }
@@ -56,11 +67,12 @@ const [amountAfter , setAmountAfter] = useState()
         top: '35%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
+        textAlign: 'right'
         // fontWeight: 'bold',
     }
     const dates = {
         position: 'absolute',
-        right: '32%',
+        right: '40%',
         top: '15%'
     }
     const job_entry = {
@@ -99,14 +111,7 @@ const [amountAfter , setAmountAfter] = useState()
         right: '25%',
         top:'10%',
     }
-    /*const management_name = {
-        position: 'absolute',
-        right: '25%',
-        top:'10%',
-        fontFamily: 'sans-serif',
-        fontSize: '25px',
-        fontWeight: 'bold',
-    }*/
+
     const sign = {
         position: 'absolute',
         right: '10%',
@@ -152,7 +157,7 @@ const [amountAfter , setAmountAfter] = useState()
         right: '4%',
         top:'33%',
         width: '55%',
-        height: '38.5%',
+        height: '41%',
         padding:'5%',
         border: '1px solid ',
         // textAlign: 'justify',
@@ -162,9 +167,9 @@ const [amountAfter , setAmountAfter] = useState()
     const tird_squre = {
         position: 'absolute',
         right:'4%' ,
-        top:'72%',
+        top:'75%',
         width: '30%',
-        height: '25%',
+        height: '22%',
         padding:'5%',
         border: '1px solid ',
 
@@ -177,16 +182,16 @@ const [amountAfter , setAmountAfter] = useState()
         left :'3%' ,
         top:'33%',
         width: '37.5%',
-        height: '38.5%',
+        height: '41%',
         padding:'5%',
         border: '1px solid ',
     }
     const head_department_sign_squre = {
         position: 'absolute',
         right:'34.5%' ,
-        top:'72%',
+        top:'75%',
         width: '30%',
-        height: '25%',
+        height: '22%',
         padding:'5%',
         border: '1px solid ',
 
@@ -197,9 +202,9 @@ const [amountAfter , setAmountAfter] = useState()
     const management_sing_squre = {
         position: 'absolute',
         right:'65%' ,
-        top:'72%',
+        top:'75%',
         width: '32%',
-        height: '25%',
+        height: '22%',
         padding:'5%',
         border: '1px solid ',
 
@@ -209,8 +214,8 @@ const [amountAfter , setAmountAfter] = useState()
     }
     const image_size = {
         position:'absolute',
-        left:'5%',
-        top: '10px',
+        left:'1%',
+        top: '0%',
         width: '30%',
         height: '60%',
     }
@@ -225,13 +230,14 @@ const [amountAfter , setAmountAfter] = useState()
 
     useEffect(() => {
         if (loading) {
-            const number = data[0].debit + data[0].credit
+            const number = parseFloat(data[0].debit + data[0].credit)
             const numberString = number.toString();
             const [beforeDot, afterDot] = numberString.split('.');
+            setType((data[0].management_rel.type === 'M')? 'قيد' : 'إشعار')
+            setToggle(data[0].management_rel.type)
 
-            setAmountBefore(beforeDot); // Output: "521480"
-            setAmountAfter(afterDot); // Output: "5210"
-
+            setAmountBefore(beforeDot);
+            setAmountAfter(afterDot);
         }
     }, [loading]);
 
@@ -245,7 +251,7 @@ const [amountAfter , setAmountAfter] = useState()
                         </div>
                         <img src={wahda_logo} style={image_size} alt="wahda"/>
                         <div style={kyd}>
-                            <p>قيد</p>
+                            <p>{type}</p>
                             <p>{(data[0].debit != 0) ? '  خصم' : ' إضافة'}</p>
                         </div>
                         <div style={account_detail}>
@@ -256,6 +262,12 @@ const [amountAfter , setAmountAfter] = useState()
                         <div style={dates}>
                             <p> {new Date(data[0].rest_date).toISOString().split('T')[0]} : التـــاريخ </p>
                         </div>
+                        {  (toggal === 'B') &&
+                        <div style={isBransh}>
+                            <p>  إلي    :    مصرف الوحدة </p>
+                            <p>العنوان : {data[0].management_rel.name} </p>
+                        </div>
+                        }
                     </div>
                     <div style={second_squre}>
                                 <div style={job_entry}>

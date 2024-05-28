@@ -4,7 +4,7 @@ export default ({title, colums , tableItems, toggle, togglename , delete_url , r
     const here = true
     let c = 0
     function ex (id) {
-
+        console.log(delete_url+id)
         fetch(delete_url+id,{
             method:"DELETE",
             headers:{
@@ -12,13 +12,21 @@ export default ({title, colums , tableItems, toggle, togglename , delete_url , r
                 }
         }).then(res => res.json())
             .then(result => {
+
                 if (result.success){
+
+
                     alert('the element with id '+id +' was removed successfuly')
                     refresh(result)
                 }
                 else
                     throw new Error(result.message)
-            }).catch((err)=> alert(err.message))
+            }).catch((err)=> {
+                if (err.message === 'FK')
+                    alert('الإدارة/الفرع منفذ ضمن سلسلة من القيود لذلك لا يمكن حذفه')
+            else
+                alert(err.message)
+        })
     }
 
 

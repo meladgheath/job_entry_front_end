@@ -28,7 +28,7 @@ const PrintPage = () => {
         {name:'name'},
     ]
 
-    const [data , err ] = useFetchwithID(MyUrl+'/restrictions/'+restID)
+    const [data , err , isLoading ] = useFetchwithID(MyUrl+'/restrictions/'+restID)
 
 
     const printBtn = (id)=> {
@@ -60,6 +60,7 @@ const PrintPage = () => {
 
                 </div>
 
+                {isLoading &&
                 <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
                     <table dir='rtl' className="w-full table-auto text-sm text-left">
                         <thead className="bg-gray-50 text-gray-600 font-medium border-b">
@@ -93,7 +94,9 @@ const PrintPage = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+                    }
+                    </div>
+
         </>
     )
 }

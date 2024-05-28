@@ -1,4 +1,4 @@
-import {useContext, useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState} from "react";
 import Management from "./Management";
 import Restrictions from "./Restrictions";
 import PrintPage from "./PrintPage";
@@ -6,6 +6,8 @@ import Account from "./account";
 import {useBearStore} from "../controller/useBearStore";
 import UserInfo from "./UserInfo";
 import {useNavigate} from "react-router-dom";
+import Store from "./Store";
+
 
 
 
@@ -110,7 +112,15 @@ const Sidebar = () => {
                 </path>
             </svg>,
             ev:'users'
-        }
+        },
+       /* {
+            href:'javascript:void(0)',
+            name:'Store',
+            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+            </svg>,
+            ev:'store'
+        },*/
         /* {
              href: '#',
              name: 'Page',
@@ -283,6 +293,8 @@ const Sidebar = () => {
                 return <Account />
             case 'users' :
                 return <UserInfo />
+            case 'store':
+                return <Store />
             default:
                 return null;
         }

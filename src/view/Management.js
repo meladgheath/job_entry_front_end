@@ -5,18 +5,21 @@ import Tables from "../component/Tables";
 import useFetch from "../controller/useFetch"
 import Title from "../component/Title";
 import React from "react";
-
-import ReactDOM from 'react-dom';
 import MyUrl from "../controller/url";
+import CenterPage from "../component/CenterPage";
+import Radio from "../component/Radio";
 
 
 const Management = () => {
 
 
-    const [data , err ] = useFetch(MyUrl+'/management')
+    const [data , err , isLoading] = useFetch(MyUrl+'/management')
 
     const name = useRef(null)
     const code = useRef(null)
+
+    const isManagement = useRef(null)
+    const isBransh     = useRef(null)
 
     const colums =[
         {name : "#"} ,
@@ -26,16 +29,18 @@ const Management = () => {
         {name: "Remove-btn"}
     ]
 
-    // const [data , err] = useFetch('http://localhost:3003/management')
+
     const fun =  (e) => {
         e.preventDefault()
         //
-     fetch(MyUrl+'/management/',{
+        let type = (isManagement.current.checked) ? 'M' : (isBransh.current.checked) ? 'B' : ''
+
+       fetch(MyUrl+'/management/',{
          method:'POST',
          headers:{
              'Content-Type':'application/json'
          },
-         body: JSON.stringify({name:name.current.value , code:code.current.value})
+         body: JSON.stringify({name:name.current.value , code:code.current.value , type})
          })
          .then((res) => res.json())
          .then((result)=> {
@@ -45,28 +50,36 @@ const Management = () => {
                  throw new Error(result.messages)
          }).catch((err)=> alert(err.message()))
          .finally(()=> clear())
+
+
     }
+
+
 const clear = ()=> {
         name.current.value = "";
         code.current.value = ""
+        isManagement.current.checked = false
+        isBransh.current.checked = false
+
 }
     return (
         <>
 
-            <div className="flex items-center justify-center p-12">
-                <div className="mx-auto w-full max-w-[550px] bg-white">
+            <CenterPage>
                     <Title title='قــائمــــــة الإدارات' subtitle='هذه الصفحه تضم مجموعة الإدارات و يمكنك إضافة أي إدارة جديدة بالإضافة إلي حذف بعض الإدارات' />
-                    <form onSubmit={fun}>
-                        <Inputs r={name} label='الإسم' holder='إسم الإدارة/الفرع'  rtl={true}/>
-                        <Inputs r={code} label='رقم الإشاري' holder='إشاري الإدارة/الفرع' rtl={true} />
+                <form onSubmit={fun}>
+                    <Inputs r={name} label='الإسم' holder='إسم الإدارة/الفرع' rtl={true}/>
+                    <Inputs r={code} label='رقم الإشاري' holder='إشاري الإدارة/الفرع' rtl={true}/>
+                    <ul className="grid w-full gap-6 md:grid-cols-2">
+                        <Radio name='type' id='bransh'     value='B' label='فرع' r={isBransh}/>
+                        <Radio name='type' id='management' value='M' label='إدارة' r={isManagement}/>
+                    </ul>
+                    <br/>
                         <Btn type='submit' caption='SAVE'/>
-                    </form>
-                </div>
-
-            </div>
-            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data} delete_url='http://localhost:3003/management/' />
+                </form>
+            </CenterPage>
+            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data} delete_url={MyUrl+'/management/'} />
             <br/>
-
             <br/>
         </>
     )
