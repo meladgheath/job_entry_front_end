@@ -18,6 +18,7 @@ const [amountAfter , setAmountAfter] = useState()
 const [type , setType ] = useState()
     const [toggal , setToggle ] = useState()
 
+
     // const username = useBearStore((state) => state.username)
     const name = useBearStore((state)=> state.name)
     const username  = useBearStore((state) => state.username)
@@ -227,6 +228,7 @@ const [type , setType ] = useState()
 
     const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/'+query.get('id'))
 
+const [totalNumber , setTotalNumber] = useState()
 
     useEffect(() => {
         if (loading) {
@@ -238,6 +240,8 @@ const [type , setType ] = useState()
 
             setAmountBefore(beforeDot);
             setAmountAfter(afterDot);
+            setTotalNumber(number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","))
+
         }
     }, [loading]);
 
@@ -294,7 +298,7 @@ const [type , setType ] = useState()
                         </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}
-                            <p>  { "  دل "  + (amountBefore+"."+ ((amountAfter !== undefined) ? amountAfter : "" )).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }  </p>
+                            <p>  { totalNumber}  </p>
                         </div>
                     </div>
                     <div style={head_department_sign_squre}>
