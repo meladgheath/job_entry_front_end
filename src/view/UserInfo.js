@@ -55,7 +55,7 @@ const UserInfo = () => {
                     <Btn type='submit' caption='SAVE' />
                 </form>
         </CenterPage>
-        <Tables tableItems={users} colums={colums}  toggle={[]} togglename={[]} />
+        <Tables tableItems={users} colums={colums}  toggle={[]} togglename={[]} delete_url={MyUrl+'/users/'} delete_id='username' />
         </>
     )
 }

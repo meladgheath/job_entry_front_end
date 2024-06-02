@@ -48,8 +48,9 @@ const Management = () => {
                 alert("completed successfully")
              else
                  throw new Error(result.messages)
-         }).catch((err)=> alert(err.message()))
-         .finally(()=> clear())
+         }).catch((err)=>
+           alert(err)
+           ).finally(()=> clear())
 
 
     }
@@ -78,7 +79,9 @@ const clear = ()=> {
                         <Btn type='submit' caption='SAVE'/>
                 </form>
             </CenterPage>
-            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data} delete_url={MyUrl+'/management/'} />
+            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data} delete_url={MyUrl+'/management/'}
+            delete_id='id'
+            />
             <br/>
             <br/>
         </>

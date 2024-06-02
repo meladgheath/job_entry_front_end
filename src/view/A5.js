@@ -294,7 +294,7 @@ const [type , setType ] = useState()
                         </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}
-                            <p>  { "  دل "  + amountBefore+"."+ ((amountAfter !== undefined) ? amountAfter : "" ) }  </p>
+                            <p>  { "  دل "  + (amountBefore+"."+ ((amountAfter !== undefined) ? amountAfter : "" )).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }  </p>
                         </div>
                     </div>
                     <div style={head_department_sign_squre}>

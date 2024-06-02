@@ -10,7 +10,7 @@ const Login = ()=> {
     const password = useRef(null)
 
     const [error , setError ] = useState()
-
+    const isLogin = useRef((state)=> state.isLogin)
     const login = useBearStore((state)=> state.login)
     const navigate = useNavigate()
 

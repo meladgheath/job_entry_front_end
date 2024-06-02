@@ -1,6 +1,6 @@
 import Btn from "./Btn";
 
-export default ({title, colums , tableItems, toggle, togglename , delete_url , refresh  }) => {
+export default ({title, colums , tableItems, toggle, togglename , delete_url , refresh , delete_id  }) => {
     const here = true
     let c = 0
     function ex (id) {
@@ -12,12 +12,9 @@ export default ({title, colums , tableItems, toggle, togglename , delete_url , r
                 }
         }).then(res => res.json())
             .then(result => {
-
                 if (result.success){
-
-
                     alert('the element with id '+id +' was removed successfuly')
-                    refresh(result)
+                    refresh(true)
                 }
                 else
                     throw new Error(result.message)
@@ -66,7 +63,7 @@ export default ({title, colums , tableItems, toggle, togglename , delete_url , r
                                 }</td>
                             ))}
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <Btn caption='remove' click={()=> ex(item.id)}/> </td>
+                                    <Btn caption='remove' click={()=> ex(item[delete_id])}/> </td>
                             </tr>
                         ))
                     }

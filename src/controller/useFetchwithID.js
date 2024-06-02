@@ -5,6 +5,7 @@ const useFetch = (url )=> {
     const [data , setData] = useState([])
     const [err , setErr] = useState()
     const [isLoading , setLoading ] = useState(false)
+    const [refresh , setRefresh ] = useState(false)
 
    useEffect(()=> {
        console.log(url)
@@ -15,15 +16,17 @@ const useFetch = (url )=> {
                 if (result.success) {
                     setData(result.data)
                     setLoading(result.data && result.data.length > 0)
+                    setRefresh(true)
                 }
                 else {
                     throw new Error(result.messages)
+                    setRefresh(false)
                 }
 
             }).catch((err)=> setErr(err.message))
 
-    },[url])
-    return [ data , err , isLoading ]
+    },[url,refresh])
+    return [ data , err , isLoading , refresh]
 }
 
 export default useFetch

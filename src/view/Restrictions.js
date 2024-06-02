@@ -27,7 +27,7 @@ const Restrictions = () => {
     const accountName = useRef(null)
 
 
-        const [tadata , taerr, isLoading] = useFetchwithID(MyUrl+'/restrictions/'+restID )
+        const [tadata , taerr, isLoading, refresh ] = useFetchwithID(MyUrl+'/restrictions/'+restID )
         const [data , err ] = useFetch(MyUrl+'/management')
 
 
@@ -105,7 +105,8 @@ return (
             </div>
         </div>
         {isLoading &&
-        <Tables colums={colums} tableItems={tadata} toggle={['management_rel']} togglename={['name']}  delete_url={MyUrl+'/restrictions/'}/>
+        <Tables colums={colums} tableItems={tadata} toggle={['management_rel']} togglename={['name']}
+                delete_url={MyUrl+'/restrictions/'} delete_id='id' refresh={refresh} />
         }
     </>
 )
