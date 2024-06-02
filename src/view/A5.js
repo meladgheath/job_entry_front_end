@@ -232,7 +232,7 @@ const [totalNumber , setTotalNumber] = useState()
 
     useEffect(() => {
         if (loading) {
-            const number = parseFloat(data[0].debit + data[0].credit)
+            const number = parseFloat(data[0].debit) + parseFloat(data[0].credit)
             const numberString = number.toString();
             const [beforeDot, afterDot] = numberString.split('.');
             setType((data[0].management_rel.type === 'M')? 'قيد' : 'إشعار')
