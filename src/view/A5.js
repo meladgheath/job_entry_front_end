@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useFetchwithID from "../controller/useFetchwithID";
-import wahda_logo from '../icons/logo.svg'
+import wahda_logo from '../icons/WhatsApp Image 2025-07-02 at 12.13.42 PM2.jpeg'
 import MyUrl from "../controller/url";
 import Btn from "../component/Btn";
 
@@ -17,6 +17,7 @@ const [amountBefore , setAmountBefore] = useState()
 const [amountAfter , setAmountAfter] = useState()
 const [type , setType ] = useState()
     const [toggal , setToggle ] = useState()
+    const [amount, setAmount ] = useState('')
 
 
     // const username = useBearStore((state) => state.username)
@@ -224,26 +225,37 @@ const [type , setType ] = useState()
         position: 'absolute',
         left:'0%'
     }
-
-
     const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/'+query.get('id'))
 
 const [totalNumber , setTotalNumber] = useState()
 
+
+
     useEffect(() => {
         if (loading) {
-            const number = parseFloat(data[0].debit + data[0].credit)
+            const number = parseFloat(data[0].debit) + parseFloat(data[0].credit)
             const numberString = number.toString();
             const [beforeDot, afterDot] = numberString.split('.');
             setType((data[0].management_rel.type === 'M')? 'قيد' : 'إشعار')
             setToggle(data[0].management_rel.type)
+/*
 
             setAmountBefore(beforeDot);
             setAmountAfter(afterDot);
-            setTotalNumber(number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","))
+*/
 
+            console.log('afterDot',afterDot);
+            console.log('beforeDot', beforeDot);
+
+            let dd = convert(beforeDot) + ' دينار '
+
+            dd = dd + ((afterDot > 0 ) ? ' و ' + convert(afterDot) + ' درهم ' : '' )
+            setAmount(dd)
+
+            setTotalNumber(number.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","))
         }
     }, [loading]);
+
 
     return (
         <>
@@ -261,7 +273,6 @@ const [totalNumber , setTotalNumber] = useState()
                         <div style={account_detail}>
                             <p>{data[0].accountName}</p>
                             <p>{data[0].account} : رقم الحساب </p>
-
                         </div>
                         <div style={dates}>
                             <p> {new Date(data[0].rest_date).toISOString().split('T')[0]} : التـــاريخ </p>
@@ -294,7 +305,7 @@ const [totalNumber , setTotalNumber] = useState()
                         </div>
                         <hr style={crosLine}/>
                         <div style={money_letter}>
-                            {convert(parseFloat(amountBefore)) +   "دينار و " + convert(parseFloat(amountAfter)) + "درهم"}
+                            { amount}
                         </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}

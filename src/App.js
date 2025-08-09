@@ -2,7 +2,6 @@ import './App.css';
 import Main from "./view/Main";
 import {Route, Routes, useNavigate} from "react-router-dom";
 
-
 import A5 from "./view/A5";
 import Login from "./view/Login";
 import Page404 from "./view/404";

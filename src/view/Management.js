@@ -55,6 +55,22 @@ const Management = () => {
 
     }
 
+    function ex (id) {
+        fetch(MyUrl + '/management/' + id, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(result => {
+                if (result.success)
+                    alert('the element with id ' + id + ' was removed successfuly')
+                else
+                    throw new Error(result.message)
+            }).catch((err) =>
+            alert(err.message));
+    }
+
 
 const clear = ()=> {
         name.current.value = "";
@@ -79,7 +95,8 @@ const clear = ()=> {
                         <Btn type='submit' caption='SAVE'/>
                 </form>
             </CenterPage>
-            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data} delete_url={MyUrl+'/management/'}
+            <Tables colums={colums} title='مجموعات الإدارات/الفروع' toggle={[]} tableItems={data}
+            deleteBtn={ex}
             delete_id='id'
             />
             <br/>

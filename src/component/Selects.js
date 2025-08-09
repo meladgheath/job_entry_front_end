@@ -1,5 +1,5 @@
 
-const Selects = ({name , label , id , data , holder , rtl , Change , r})=> {
+const Selects = ({name , label , id , data , holder , rtl , Change , r , selected_id })=> {
 
     const css = (rtl) ? "mb-3 block text-base font-medium text-[#07074D] text-end" : "mb-3 block text-base font-medium text-[#07074D]"
     
@@ -15,8 +15,10 @@ const Selects = ({name , label , id , data , holder , rtl , Change , r})=> {
                 <option selected disabled={true}>{holder}</option>
                 {
                     data.map((item)=> (
-                        // <option key={item.id} data-key={item.id}>{item.name}</option>
-                        <option value={item.id} key={item.id}>{item.name}</option>
+                        (item.id == selected_id) ? <option value={item.id} key={item.id}
+                             selected="selected"
+                        >{item.name}</option>
+                    : <option  value={item.id} key={item.id} >{item.name}</option>
                     ))
                 }
             </select>

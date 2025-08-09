@@ -61,7 +61,7 @@ const Sidebar = () => {
 
 
     const mohasaba = [
-        /*{
+        {
             href: 'javascript:void(0)',
 
             name: 'الحسابات المصرفية',
@@ -77,7 +77,7 @@ const Sidebar = () => {
                           points="16.52 13.91 19.64 13.91 22.5 22.5 1.5 22.5 4.36 13.91 7.49 13.91"></polyline>
             </svg>,
             ev:'account'
-        },*/
+        },
         {
             href: '#',
             name: 'الإدارات/الفروع',

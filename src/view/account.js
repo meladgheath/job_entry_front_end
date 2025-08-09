@@ -2,31 +2,20 @@ import Title from "../component/Title";
 import Inputs from "../component/Inputs";
 import Btn from "../component/Btn";
 
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import LargeInput from "../component/LargeInput";
 import useFetch from "../controller/useFetch";
+import Tables from "../component/Tables";
+import MyUrl from "../controller/url";
 
 const Account = () => {
 
     const nam = useRef(null)
     const number = useRef(null)
     const detail = useRef(null)
+     const [account , setAccount ] = useState()
+    const [data , err,isLoad ] = useFetch("http://localhost:3003/account")
 
-    const [data , err ] = useFetch("http://localhost:3003/account")
-
-/*
-    useEffect(() => {
-        fetch("http://localhost:3003/account")
-            .then(res=>res.json())
-            .then((result)=>{
-                if (result.success)
-                    setdata(result.message)
-                else
-                    throw new Error(result.message)
-        }).catch((err)=> alert(err.message))
-    }, []);*/
-
-    // const [number , setnumber] = useState();
 
     const fun = (e) => {
         e.preventDefault()
@@ -43,6 +32,22 @@ const Account = () => {
                 else
                     throw new Error(result.message)
             }).catch((err)=> alert(err.message)).finally(() => clear())
+    }
+
+    function ex (id) {
+        fetch(MyUrl + '/account/' + id, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(result => {
+                if (result.success)
+                    alert('the element with id ' + id + ' was removed successfuly')
+                else
+                    throw new Error(result.message)
+            }).catch((err) =>
+            alert(err.message));
     }
     const clear = () => {
         nam.current.value = ''
@@ -63,17 +68,23 @@ const Account = () => {
         <>
             <div className="flex items-center justify-center p-12">
                 <div className="mx-auto w-full max-w-[550px] bg-white">
-                    <Title title='account Parameter dataEntry' subtitle=''/>
+                    <Title title='إدخال رقم الحســـاب' subtitle=''/>
                     <form onSubmit={fun}>
-                        <Inputs r ={nam} name='name' label='Name' holder='account name' rtl={false} />
-                        <Inputs r={number} name='number' label='Number' type='text' holder='account Number' rtl={false} />
-                        <LargeInput r={detail} holder='تفاصيل أو ملاحظات إن وجدت' label='Details' />
+                        <Inputs r ={nam} name='name'  label='الإسم' holder='مسمي الحساب ' rtl={true} />
+                        <Inputs r={number} name='number' label='Number' type='text' holder='رقم الحســــاب' rtl={true} />
+                        <LargeInput r={detail} holder='تفاصيل أو ملاحظات إن وجدت' label='تفاصيل' rtl={true} />
                         <Btn type='submit' caption='SAVE'/>
                     </form>
                 </div>
             </div>
-            {/*<Tables tableItems={data} colums={colums} title='Account List' toggle={[]}  delete_url='http://localhost:3003/account/'/>*/}
 
+            {isLoad &&
+                <Tables colums={colums} title={'الحســـابات الكلية'} tableItems={data}
+                        deleteBtn={ex}
+                         toggle={[]} delete_id='id'
+                        hasupdate={false}
+                />
+            }
             <br/>
         </>
     )

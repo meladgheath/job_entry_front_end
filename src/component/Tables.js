@@ -1,29 +1,11 @@
 import Btn from "./Btn";
 
-export default ({title, colums , tableItems, toggle, togglename , delete_url , refresh , delete_id  }) => {
+export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delete_id , deleteBtn ,hasupdate , updateBtn }) => {
     const here = true
     let c = 0
-    function ex (id) {
-        console.log(delete_url+id)
-        fetch(delete_url+id,{
-            method:"DELETE",
-            headers:{
-                    'Content-Type':'application/json'
-                }
-        }).then(res => res.json())
-            .then(result => {
-                if (result.success){
-                    alert('the element with id '+id +' was removed successfuly')
-                    refresh(true)
-                }
-                else
-                    throw new Error(result.message)
-            }).catch((err)=> {
-                if (err.message === 'FK')
-                    alert('الإدارة/الفرع منفذ ضمن سلسلة من القيود لذلك لا يمكن حذفه')
-            else
-                alert(err.message)
-        })
+
+    function update (id) {
+        console.log(getUrl+id)
     }
 
 
@@ -62,9 +44,13 @@ export default ({title, colums , tableItems, toggle, togglename , delete_url , r
                                        // (i === toggle) ? item[toggle][togglename] : item[i]
                                 }</td>
                             ))}
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Btn caption='remove' click={()=> ex(item[delete_id])}/> </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                    <Btn caption='remove' click={()=> deleteBtn(item[delete_id])}/> </td>
+                            {hasupdate &&
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <Btn caption='Update' click={()=> updateBtn(item[delete_id])}/> </td>}
                             </tr>
+
                         ))
                     }
                     </tbody>

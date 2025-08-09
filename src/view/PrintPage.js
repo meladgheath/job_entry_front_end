@@ -3,7 +3,6 @@ import React, {useRef, useState} from "react";
 import Title from "../component/Title";
 import Inputs from "../component/Inputs";
 import Btn from "../component/Btn";
-import useFetchwithID from "../controller/useFetchwithID";
 
 import MyUrl from "../controller/url";
 import {useNavigate} from "react-router-dom";
@@ -12,14 +11,29 @@ import {useBearStore} from "../controller/useBearStore";
 const PrintPage = () => {
 
     const id = useRef(null);
-    const [restID ,  setRestID] = useState(null);
 
     const name = useBearStore((state)=> state.name)
     const Navigator = useNavigate()
+    const [restId, setRestId] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [data, setData] = useState([])
 
     const fun = (e) => {
         e.preventDefault();
-        setRestID(id.current.value);
+        fetch(MyUrl+'/restrictions/'+id.current.value)
+            .then((res) => res.json())
+            .then(result => {
+                if (result.success) {
+                    setData(result.data)
+                    setIsLoading(true)
+                } else
+                    throw new Error(result.messages)
+
+            }).catch((err) => {
+            alert(err.message)
+            setIsLoading(false)
+        })
+
     }
     const colums = [
         {name:'#'},
@@ -27,19 +41,17 @@ const PrintPage = () => {
         {name:'restID'},
         {name:'name'},
     ]
-
-    const [data , err , isLoading ] = useFetchwithID(MyUrl+'/restrictions/'+restID)
-
-
+    // const [ data ,err ,isLoading ] = useFetchwithID(MyUrl+'/restrictions/'+resi)
     const printBtn = (id)=> {
         // window.open('/mydoc?id='+id);
     // , '_blank'
-
-        Navigator('/mydoc?id='+id)
+       Navigator('/mydoc?id='+id)
+      //   setRestId(id)
     }
 
     return (
         <>
+            {restId}
             <div className="flex items-center justify-center p-12">
                 <div className="mx-auto w-full max-w-[550px] bg-white">
                     <Title title='شاشــــــة القيود' subtitle=''/>
