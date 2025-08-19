@@ -32,6 +32,22 @@ const UserInfo = () => {
                     throw new Error(result.message)
             }).catch((err)=> alert(err.message))
             .finally(() => clear())
+        }
+
+    function ex (id) {
+        fetch(MyUrl + '/users/' + id, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(result => {
+                if (result.success)
+                    alert('the element with id ' + id + ' was removed successfuly')
+                else
+                    throw new Error(result.message)
+            }).catch((err) =>
+            alert(err.message));
 
         const clear = ()=> {
             name.current.value = ''
@@ -55,7 +71,7 @@ const UserInfo = () => {
                     <Btn type='submit' caption='SAVE' />
                 </form>
         </CenterPage>
-        <Tables tableItems={users} colums={colums}  toggle={[]} togglename={[]} delete_url={MyUrl+'/users/'} delete_id='username' />
+        <Tables tableItems={users} colums={colums}  toggle={[]} togglename={[]} delete_id='username' deleteBtn={ex} />
         </>
     )
 }
