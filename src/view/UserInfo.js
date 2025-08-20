@@ -18,7 +18,8 @@ const UserInfo = () => {
 
     const fun = (e) => {
         e.preventDefault();
-        // console.log(name.current.value,username.current.value,password.current.value)
+        // console.log(window.location.hostname)
+        console.log(name.current.value,username.current.value,password.current.value)
         fetch(MyUrl+"/users", {
             method: "POST",
             headers:{
@@ -32,6 +33,7 @@ const UserInfo = () => {
                     throw new Error(result.message)
             }).catch((err)=> alert(err.message))
             .finally(() => clear())
+
         }
 
     function ex (id) {
