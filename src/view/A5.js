@@ -58,15 +58,24 @@ const [type , setType ] = useState()
     const money = {
         position: 'absolute',
         right: '4%',
-        bottom:'5%',
+        bottom:'18%',
         fontFamily: 'Montserrat',
-        fontSize: '25px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+    }
+
+    const total = {
+        position: 'absolute',
+        right: '4%',
+        bottom:'2%',
+        fontFamily: 'Montserrat',
+        fontSize: '18px',
         fontWeight: 'bold',
     }
     const money_letter = {
         position: 'absolute',
         right: '4%',
-        top: '35%',
+        top: '25%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
         textAlign: 'right'
@@ -110,8 +119,8 @@ const [type , setType ] = useState()
     }
     const head_department = {
         position: 'absolute',
-        right: '25%',
-        top:'10%',
+        right: '18%',
+        top:'10%'
     }
 
     const sign = {
@@ -139,7 +148,15 @@ const [type , setType ] = useState()
         position: 'absolute',
         left: '0%',
         right: '0%',
-        top: '25%',
+        top: '18%',
+        // paddingTop: '2%',
+        border: '1px solid ',
+    }
+    const crosLine2 = {
+        position: 'absolute',
+        left: '0%',
+        right: '0%',
+        bottom: '14%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -198,7 +215,7 @@ const [type , setType ] = useState()
         border: '1px solid ',
 
         fontFamily: 'sans-serif',
-        fontSize: '18px',
+        fontSize: '16px',
         fontWeight: 'bold',
     }
     const management_sing_squre = {
@@ -211,7 +228,7 @@ const [type , setType ] = useState()
         border: '1px solid ',
 
         fontFamily: 'sans-serif',
-        fontSize: '18px',
+        fontSize: '14px',
         fontWeight: 'bold',
     }
     const image_size = {
@@ -228,11 +245,27 @@ const [type , setType ] = useState()
     const [data , err, loading ] = useFetchwithID(MyUrl+'/restrictions/ID/'+query.get('id'))
 
 const [totalNumber , setTotalNumber] = useState()
+    const [tasData, setTasData] = useState()
+
 
 
 
     useEffect(() => {
         if (loading) {
+            // if (data[0].status)
+            console.log(data[0])
+            console.log(data[0].status)
+                if (data[0].status)
+                    fetch(MyUrl+"/tas/res/"+data[0].id)
+                        .then(response => response.json())
+                        .then(res => {
+                            if (res.success)
+                                setTasData(res.data)
+                                else
+                                throw new Error("unkonw error ")
+                        })
+                        .catch(err=> setTasData(undefined))
+
             const number = parseFloat(data[0].debit) + parseFloat(data[0].credit)
             const numberString = number.toString();
             const [beforeDot, afterDot] = numberString.split('.');
@@ -244,8 +277,6 @@ const [totalNumber , setTotalNumber] = useState()
             setAmountAfter(afterDot);
 */
 
-            console.log('afterDot',afterDot);
-            console.log('beforeDot', beforeDot);
 
             let dd = convert(beforeDot) + ' دينار '
 
@@ -261,6 +292,7 @@ const [totalNumber , setTotalNumber] = useState()
         <>
             {loading &&
                 <div>
+                    {/*{tasData && JSON.stringify(tasData)}*/}
                     <div style={first_squre}>
                         <div style={job_entry_id}>
                         <p>{data[0].resID} : رقم القيد </p>
@@ -309,7 +341,15 @@ const [totalNumber , setTotalNumber] = useState()
                         </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}
-                            <p>  { totalNumber}  </p>
+                            {tasData && tasData.map((item)=>
+                            <p>{item.value}</p>
+                            )}
+                            {/*<p>  { totalNumber}  </p>*/}
+                        </div>
+
+                        <hr style={crosLine2}/>
+                        <div style={total}>
+                            <p>{totalNumber}</p>
                         </div>
                     </div>
                     <div style={head_department_sign_squre}>

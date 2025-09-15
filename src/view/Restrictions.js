@@ -6,6 +6,7 @@ import Selects from "../component/Selects";
 import useFetch from "../controller/useFetch";
 import Radio from "../component/Radio";
 
+import Checkbox from "../component/Checkbox";
 
 import MyUrl from "../controller/url";
 import LargeInput from "../component/LargeInput";
@@ -33,6 +34,7 @@ const Restrictions = () => {
     const credit = useRef(null)
     const debit = useRef(null)
     const money = useRef(null)
+    const mult = useRef(false)
     const accountName = useRef(null)
 
 
@@ -62,24 +64,21 @@ const Restrictions = () => {
 
                 })
         }
-            if (prevValueAccount.current != account) {
-                fetch(MyUrl+'/accounts/'+account )
-                    .then(res => res.json())
-                    .then(res => {
-                        if (res.success && res.data.length > 0)
-                            accountName.current.value = res.data[0].name
-                        else
-                            accountName.current.value = ''
-                    })
-            }
+           if (prevValueAccount.current != account) {
+               fetch(MyUrl + '/accounts/' + account)
+                   .then(res => res.json())
+                   .then(res => {
+                       if (res.success && res.data.length > 0)
+                           accountName.current.value = res.data[0].name
+                       else
+                           accountName.current.value = ''
+                   })
+           }
             prevValueAccount.current = account
             prevValueRestID.current= restID
-            /**/
-
     }, [account, restID , refresh]);
 
     const onUpdate = () => {
-        console.log(accountName.current.value)
         fetch(MyUrl+'/restrictions/ID/'+id, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -106,6 +105,7 @@ const Restrictions = () => {
     }
     const funs = (e)=> {
         e.preventDefault()
+        console.log(mult.current.value)
         if(updateOn)
             onUpdate()
         else
@@ -122,7 +122,7 @@ const Restrictions = () => {
                 d = money.current.value
 
         // console.log(" id "+ id.current.value)
-        console.log(manag.current.value)
+        console.log("here the result :==> "+mult.current.checked)
 
         fetch(MyUrl+'/restrictions',{
             method: 'POST',
@@ -130,13 +130,15 @@ const Restrictions = () => {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                id:restID ,
+                resID:restID ,
                 name:name.current.value,
-                managementID:manag.current.value,
+                managementID:parseInt(manag.current.value),
                 credit:c,
                 debit:d,
                 account:account,
-                accountName:accountName.current.value})
+                accountName:accountName.current.value,
+                status : mult.current.checked
+            })
         }).then(res => res.json())
             .then(result => {
                 if (result.success)
@@ -181,6 +183,8 @@ const Restrictions = () => {
                         debit.current.checked = true
                         money.current.value = res.data[0].debit
                     }
+                    console.log(res.data[0].status)
+                    mult.current.checked = res.data[0].status
                     setUpdateOn(true)
                 }
             }).catch((err)=> alert(err.message))
@@ -211,13 +215,14 @@ return (
                 <form onSubmit={funs}>
                     <Inputs name='ID' holder='رقم القيد' rtl={true} label='رقم القيد' Change={(e)=> setRestID(e.target.value) }/>
                     <LargeInput name='name' holder=' وصــــف القيد /البيــــــــــــان' label='مسمـــي القيد' rtl={true} r={name} />
-                    <Selects r={manag} data={data} label='الإدارت/الفروع' rtl={true} selected_id={selected}/>
+                    <Selects r={manag} data={data} label='الإدارت/الفروع' rtl={true} selected_id={selected} selectedItem="name"/>
 
                     <ul className="grid w-full gap-6 md:grid-cols-2">
                         <Radio name='state' id='credit' value='C' label='إضافة' r={credit}/>
                         <Radio name='state' id='debit' value='D' label='خصم' r={debit}/>
                     </ul>
                     <Inputs name='money' rtl={true} label='القيمة' holder=' القيمة المدخلة ' r={money} />
+                    <Checkbox r={mult} label='قابل للتسوية ' />
                     <Inputs name='account' v={account}   rtl={true} label='رقم الحساب' holder='رقــــم الحــســـــاب'  Change={
                         (e) => setAccount(e.target.value)
                     }  />
