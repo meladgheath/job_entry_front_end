@@ -60,13 +60,13 @@ const number = [
             }
         })
     if (last){
-        str = str + " و "
         last.reverse().forEach((item, index) => {
-            if (number[index][item - 1])
-            str = str + number[index][item - 1]+  " ";
+            if (number[index][item - 1]) {
+                str = str + " و "
+                str = str + number[index][item - 1] + " ";
+            }
         })
-    }
-
+    }   
     return str
 }
 

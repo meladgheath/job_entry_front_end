@@ -1,6 +1,6 @@
 import Btn from "./Btn";
 
-export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delete_id , deleteBtn ,hasupdate , updateBtn }) => {
+export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delete_id , deleteBtn ,hasupdate , updateBtn,refFun }) => {
     const here = true
     let c = 0
 
@@ -45,7 +45,8 @@ export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delet
                                 }</td>
                             ))}
                             <td className="px-6 py-4 whitespace-nowrap">
-                                    <Btn caption='remove' click={()=> deleteBtn(item[delete_id])}/> </td>
+                              <Btn caption='remove'  type='button' click={()=> deleteBtn(item[delete_id])} />
+                            </td>
                             {hasupdate &&
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <Btn caption='Update' click={()=> updateBtn(item[delete_id])}/> </td>}

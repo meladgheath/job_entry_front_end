@@ -121,7 +121,6 @@ const Restrictions = () => {
             if (debit.current.checked)
                 d = money.current.value
 
-        // console.log(" id "+ id.current.value)
         console.log("here the result :==> "+mult.current.checked)
 
         fetch(MyUrl+'/restrictions',{

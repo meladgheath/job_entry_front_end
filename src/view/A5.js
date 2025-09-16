@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import useFetchwithID from "../controller/useFetchwithID";
 import wahda_logo from '../icons/WhatsApp Image 2025-07-02 at 12.13.42 PM2.jpeg'
@@ -31,17 +31,17 @@ const [type , setType ] = useState()
         top:'1%',
         // padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '25px',
+        fontSize: '20px',
         fontWeight: 'bold',
         // border: '1px solid ',
     }
     const account_detail = {
         position: 'absolute',
-        right: '1.5%',
+        right: '15%',
         bottom:'0%',
         padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '20px',
+        fontSize: '18px',
         fontWeight: 'bold',
         textAlign: 'right'
     }
@@ -60,27 +60,10 @@ const [type , setType ] = useState()
         right: '4%',
         bottom:'18%',
         fontFamily: 'Montserrat',
-        fontSize: '14px',
-        fontWeight: 'bold',
-    }
-
-    const total = {
-        position: 'absolute',
-        right: '4%',
-        bottom:'2%',
-        fontFamily: 'Montserrat',
         fontSize: '18px',
-        fontWeight: 'bold',
-    }
-    const money_letter = {
-        position: 'absolute',
-        right: '4%',
-        top: '25%',
-        fontFamily: 'Montserrat',
-        fontSize: '18px',
-        textAlign: 'right'
         // fontWeight: 'bold',
     }
+
     const dates = {
         position: 'absolute',
         right: '40%',
@@ -96,7 +79,7 @@ const [type , setType ] = useState()
     }
     const job_entry_id = {
         position: 'absolute',
-        right: '10%',
+        right: '15%',
         top: '5%',
         fontFamily: 'sans-serif',
         fontSize: '18px',
@@ -144,11 +127,31 @@ const [type , setType ] = useState()
         paddingTop: '2%',
 
     }
+    const total = {
+        position: 'absolute',
+        right: '4%',
+        bottom:'2%',
+        fontFamily: 'Montserrat',
+        fontSize: '18px',
+        fontWeight: 'bold',
+    }
+    const money_letter = {
+        position: 'absolute',
+        // right: '4%',
+        // top: '25%',
+        bottom:'2%',
+        left: '10%',
+        fontFamily: 'Montserrat',
+        fontSize: '18px',
+        textAlign: 'right'
+        // fontWeight: 'bold',
+    }
+
     const crosLine = {
         position: 'absolute',
         left: '0%',
         right: '0%',
-        top: '18%',
+        top: '14%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -167,16 +170,16 @@ const [type , setType ] = useState()
         top:'2%',
 
         width: '93%',
-        height: '30%',
+        height: '20%',
         padding:'5%',
         border: '1px solid ',
     }
     const second_squre = {
         position: 'absolute',
         right: '4%',
-        top:'33%',
+        top:'23%',
         width: '55%',
-        height: '41%',
+        height: '51%',
         padding:'5%',
         border: '1px solid ',
         // textAlign: 'justify',
@@ -199,9 +202,9 @@ const [type , setType ] = useState()
     const fourth_squre = {
         position: 'absolute',
         left :'3%' ,
-        top:'33%',
+        top:'23%',
         width: '37.5%',
-        height: '41%',
+        height: '51%',
         padding:'5%',
         border: '1px solid ',
     }
@@ -252,11 +255,10 @@ const [totalNumber , setTotalNumber] = useState()
 
     useEffect(() => {
         if (loading) {
-            // if (data[0].status)
-            console.log(data[0])
-            console.log(data[0].status)
+            let num = Number(data[0].credit) + Number(data[0].debit)
+            console.log(num)
                 if (data[0].status)
-                    fetch(MyUrl+"/tas/res/"+data[0].id)
+                    fetch(MyUrl+"/tas/"+num+"/"+data[0].resID)
                         .then(response => response.json())
                         .then(res => {
                             if (res.success)
@@ -290,6 +292,7 @@ const [totalNumber , setTotalNumber] = useState()
 
     return (
         <>
+            <br/>
             {loading &&
                 <div>
                     {/*{tasData && JSON.stringify(tasData)}*/}
@@ -336,9 +339,6 @@ const [totalNumber , setTotalNumber] = useState()
                             قيمـــــة القيد
                         </div>
                         <hr style={crosLine}/>
-                        <div style={money_letter}>
-                            { amount}
-                        </div>
                         <div style={money}>
                             {/*<p>المبلغ</p>*/}
                             {tasData && tasData.map((item)=>
@@ -351,6 +351,11 @@ const [totalNumber , setTotalNumber] = useState()
                         <div style={total}>
                             <p>{totalNumber}</p>
                         </div>
+
+                        <div style={money_letter}>
+                            { amount}
+                        </div>
+
                     </div>
                     <div style={head_department_sign_squre}>
                         <div style={head_department}>

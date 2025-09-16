@@ -18,7 +18,7 @@ const Selects = ({name , label , id , data , holder , rtl , Change , r , selecte
                         (item.id == selected_id) ? <option value={item.id} key={item.id}
                              selected="selected"
                         >{item.name}</option>
-                    : <option  value={item.id} key={item.id} >{ item[selectedItem]}</option>
+                    : <option  value={item.id} key={item.id} >{item[selectedItem]}</option>
                     ))
                 }
             </select>

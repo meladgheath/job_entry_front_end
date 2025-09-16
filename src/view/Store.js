@@ -1,9 +1,7 @@
 import Title from "../component/Title";
 import Inputs from "../component/Inputs";
-import Btn from "../component/Btn";
 import React, {useRef} from "react";
 import Selects from "../component/Selects";
-import useFetchwithID from "../controller/useFetchwithID";
 import useFetch from "../controller/useFetch";
 import MyUrl from "../controller/url";
 import DateComp from "../component/DateComp";
