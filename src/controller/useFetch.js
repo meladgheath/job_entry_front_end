@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import MyUrl from "./url";
 
-const useFetch = (url  )=> {
+const useFetch = (url , ref  )=> {
 
 
     const [data , setData] = useState([])
@@ -9,13 +9,11 @@ const useFetch = (url  )=> {
     const [isLoading , setLoading ] = useState(false)
 
     useEffect(()=> {
-        console.log(MyUrl)
         fetch(url)
             .then((res)=> res.json())
             .then(result => {
 
                 if (result.success) {
-                    // if(data === result.data)
                     setData(result.data)
                     setLoading((result.data && result.data.length > 0))
                 }
@@ -25,9 +23,7 @@ const useFetch = (url  )=> {
             setErr(err.message)
             setLoading(false)
         })
-    },[ data , err  ])
-
-    console.log(MyUrl)
+    },[ ref  ])
 
     return [ data , err  , isLoading]
 }

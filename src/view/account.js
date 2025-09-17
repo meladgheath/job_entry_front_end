@@ -2,7 +2,7 @@ import Title from "../component/Title";
 import Inputs from "../component/Inputs";
 import Btn from "../component/Btn";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, { useRef, useState} from "react";
 import LargeInput from "../component/LargeInput";
 import useFetch from "../controller/useFetch";
 import Tables from "../component/Tables";
@@ -14,7 +14,8 @@ const Account = () => {
     const number = useRef(null)
     const detail = useRef(null)
      const [account , setAccount ] = useState()
-    const [data , err,isLoad ] = useFetch(MyUrl+"/account")
+    const [ref , setRef]  = useState(false)
+    const [data , err,isLoad ] = useFetch(MyUrl+"/account", ref )
 
 
     const fun = (e) => {
@@ -24,14 +25,21 @@ const Account = () => {
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({name:nam.current.value , number:number.current.value , detail:detail.current.value})
+            body:JSON.stringify({
+                name:nam.current.value ,
+                number:number.current.value ,
+                detail:detail.current.value
+            })
         }).then(res => res.json())
             .then(result => {
                 if (result.success)
                     alert('successfully . . . ')
                 else
                     throw new Error(result.message)
-            }).catch((err)=> alert(err.message)).finally(() => clear())
+            }).catch((err)=> alert(err.message)).finally(() => {
+                clear()
+              setRef(!ref)
+            })
     }
 
     function ex (id) {
@@ -42,12 +50,13 @@ const Account = () => {
             }
         }).then(res => res.json())
             .then(result => {
-                if (result.success)
+                if (result.success) {
                     alert('the element with id ' + id + ' was removed successfuly')
+                    setRef(!ref)
+                }
                 else
                     throw new Error(result.message)
-            }).catch((err) =>
-            alert(err.message));
+            }).catch((err) =>alert(err.message))
     }
     const clear = () => {
         nam.current.value = ''
@@ -62,7 +71,6 @@ const Account = () => {
         {name:"Details"},
         {name:"Remove-btn"}
     ]
-
 
     return (
         <>

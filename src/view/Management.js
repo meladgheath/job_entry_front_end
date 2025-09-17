@@ -1,6 +1,6 @@
 import Inputs from "../component/Inputs";
 import Btn from "../component/Btn";
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import Tables from "../component/Tables";
 import useFetch from "../controller/useFetch"
 import Title from "../component/Title";
@@ -13,7 +13,9 @@ import Radio from "../component/Radio";
 const Management = () => {
 
 
-    const [data , err , isLoading] = useFetch(MyUrl+'/management')
+    const [ref , setRef] = React.useState(false);
+
+    const [data , err , isLoading] = useFetch(MyUrl+'/management', ref)
 
     const name = useRef(null)
     const code = useRef(null)
@@ -44,15 +46,15 @@ const Management = () => {
          })
          .then((res) => res.json())
          .then((result)=> {
-            if (result.success)
+            if (result.success) {
                 alert("completed successfully")
+                setRef(!ref)
+            }
              else
                  throw new Error(result.messages)
          }).catch((err)=>
            alert(err)
            ).finally(()=> clear())
-
-
     }
 
     function ex (id) {
@@ -63,8 +65,10 @@ const Management = () => {
             }
         }).then(res => res.json())
             .then(result => {
-                if (result.success)
+                if (result.success) {
                     alert('the element with id ' + id + ' was removed successfuly')
+                    setRef(!ref)
+                }
                 else
                     throw new Error(result.message)
             }).catch((err) =>

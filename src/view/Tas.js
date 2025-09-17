@@ -98,7 +98,7 @@ const dd = async (id) => {
             {/*{JSON.stringify(data)}*/}
             <div className="flex items-center justify-center p-12">
                 <div className="mx-auto w-full max-w-[550px] bg-white">
-                    <Title title='إدخال رقم الحســـاب' subtitle=''/>
+                    <Title title='شـــــاشة تســـوية قيـــود' subtitle='الشاشة مصممه لتسوية قيمة إجمالية معينه لقيـــد'/>
                     <form  onSubmit={fun}>
                         <Inputs    name='name'  label='القيد ' holder=' رقم القيد  ' rtl={true}  Change={(e)=> setRes(e.target.value)} />
                         <Selects r={money} label="إجمالي التســـوية" rtl={true}  data={data} holder={"*_*"} selectedItem="money" Change={(e)=>setSelectName(e.target.value)} />
