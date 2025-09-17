@@ -14,12 +14,12 @@ const Account = () => {
     const number = useRef(null)
     const detail = useRef(null)
      const [account , setAccount ] = useState()
-    const [data , err,isLoad ] = useFetch("http://localhost:3003/account")
+    const [data , err,isLoad ] = useFetch(MyUrl+"/account")
 
 
     const fun = (e) => {
         e.preventDefault()
-        fetch('http://localhost:3003/account',{
+        fetch(MyUrl+'/account',{
             method: 'POST',
             headers:{
                 'Content-Type':'application/json'
