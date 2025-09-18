@@ -66,10 +66,10 @@ const Account = () => {
     const colums = [
         {name: "#"  } ,
         {name:"ID"} ,
-        {name:"Number"},
-        {name:"Name"},
-        {name:"Details"},
-        {name:"Remove-btn"}
+        {name:"رقم الحساب"},
+        {name:"وصف الحساب"},
+        {name:"تفاصيل"},
+        {name:"حـــذف"}
     ]
 
     return (

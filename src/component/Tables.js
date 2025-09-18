@@ -40,8 +40,6 @@ export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delet
 
                                 <td className="px-6 py-4 whitespace-nowrap">{
                                     (toggle.includes(i)) ? item[toggle[toggle.findIndex(e => e === i )]][togglename] : item[i]
-                                        // item[toggle][togglename] : item[i]
-                                       // (i === toggle) ? item[toggle][togglename] : item[i]
                                 }</td>
                             ))}
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -51,7 +49,6 @@ export default ({title, colums , tableItems, toggle, togglename   ,getUrl, delet
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <Btn caption='Update' click={()=> updateBtn(item[delete_id])}/> </td>}
                             </tr>
-
                         ))
                     }
                     </tbody>

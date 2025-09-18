@@ -62,7 +62,11 @@ const number = [
     if (last){
         last.reverse().forEach((item, index) => {
             if (number[index][item - 1]) {
-                str = str + " و "
+
+                if (str.length>0 && number[index][item - 1] !== number[1][0]) {
+                    str = str + " و "
+                    console.log(index , item - 1 )
+                }
                 str = str + number[index][item - 1] + " ";
             }
         })
