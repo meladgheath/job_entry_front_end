@@ -65,7 +65,7 @@ const Tas = ()=> {
             },
             body: JSON.stringify({
             value: values.current.value ,
-            res: parseInt(res),
+            res: res,
             total: money.current.options[money.current.selectedIndex].text
             })
         }).then(res => res.json())
