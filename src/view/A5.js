@@ -31,37 +31,36 @@ const [type , setType ] = useState()
         top:'1%',
         // padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '20px',
+        fontSize: '16px',
         fontWeight: 'bold',
         // border: '1px solid ',
     }
     const account_detail = {
         position: 'absolute',
-        right: '15%',
+        right: '7%',
         bottom:'0%',
         padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '18px',
+        fontSize: '15px',
         fontWeight: 'bold',
         textAlign: 'right'
     }
     const isBransh = {
         position: 'absolute',
-        right: '55%',
+        right: '45%',
         bottom:'0%',
         padding:'2%',
         fontFamily: 'Montserrat',
-        fontSize: '20px',
+        fontSize: '15px',
         fontWeight: 'bold',
         textAlign: 'right'
     }
     const money = {
         position: 'absolute',
-        right: '4%',
-        bottom:'18%',
+        left: '4%',
+        top: '16%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
-        // fontWeight: 'bold',
     }
 
     const dates = {
@@ -71,9 +70,10 @@ const [type , setType ] = useState()
     }
     const job_entry = {
         position: 'absolute',
-        right: '5%',
+        right: '2%',
         top: '5%',
         fontFamily: 'sans-serif',
+        textAlign: 'justify',
         fontSize: '18px',
         padding: '1%',
     }
@@ -130,7 +130,7 @@ const [type , setType ] = useState()
     const total = {
         position: 'absolute',
         right: '4%',
-        bottom:'2%',
+        bottom:'20%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
         fontWeight: 'bold',
@@ -139,10 +139,11 @@ const [type , setType ] = useState()
         position: 'absolute',
         // right: '4%',
         // top: '25%',
-        bottom:'2%',
-        left: '10%',
+        bottom:'6%',
+        // right: '5%',
+        right: '2%',
         fontFamily: 'Montserrat',
-        fontSize: '18px',
+        fontSize: '14px',
         textAlign: 'right'
         // fontWeight: 'bold',
     }
@@ -159,7 +160,7 @@ const [type , setType ] = useState()
         position: 'absolute',
         left: '0%',
         right: '0%',
-        bottom: '14%',
+        bottom: '28%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -178,8 +179,8 @@ const [type , setType ] = useState()
         position: 'absolute',
         right: '4%',
         top:'23%',
-        width: '55%',
-        height: '51%',
+        width: '50%',
+        height: '59%',
         padding:'5%',
         border: '1px solid ',
         // textAlign: 'justify',
@@ -189,9 +190,9 @@ const [type , setType ] = useState()
     const tird_squre = {
         position: 'absolute',
         right:'4%' ,
-        top:'75%',
+        top:'83%',
         width: '30%',
-        height: '22%',
+        height: '9%',
         padding:'5%',
         border: '1px solid ',
 
@@ -203,17 +204,17 @@ const [type , setType ] = useState()
         position: 'absolute',
         left :'3%' ,
         top:'23%',
-        width: '37.5%',
-        height: '51%',
+        width: '42%',
+        height: '59%',
         padding:'5%',
         border: '1px solid ',
     }
     const head_department_sign_squre = {
         position: 'absolute',
         right:'34.5%' ,
-        top:'75%',
+        top:'83%',
         width: '30%',
-        height: '22%',
+        height: '9%',
         padding:'5%',
         border: '1px solid ',
 
@@ -224,9 +225,9 @@ const [type , setType ] = useState()
     const management_sing_squre = {
         position: 'absolute',
         right:'65%' ,
-        top:'75%',
+        top:'83%',
         width: '32%',
-        height: '22%',
+        height: '9%',
         padding:'5%',
         border: '1px solid ',
 
@@ -238,8 +239,8 @@ const [type , setType ] = useState()
         position:'absolute',
         left:'1%',
         top: '0%',
-        width: '30%',
-        height: '60%',
+        width: '25%',
+        height: '50%',
     }
     const bb = {
         position: 'absolute',
@@ -321,7 +322,7 @@ const [totalNumber , setTotalNumber] = useState()
                     </div>
                     <div style={second_squre}>
                                 <div style={job_entry}>
-                                    <p>{data[0].name}</p>
+                                    <p dir='rtl'>{data[0].name}</p>
                                 </div>
                             </div>
                             <div style={tird_squre}>

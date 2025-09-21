@@ -89,6 +89,7 @@ const Restrictions = () => {
                 managementID: parseInt(manag.current.value),
                 credit:(credit.current.checked ? money.current.value : 0),
                 debit:(debit.current.checked ? money.current.value : 0),
+                status:mult.current.checked
         })
         }).then((res) => res.json())
             .then((res) => {
@@ -105,7 +106,6 @@ const Restrictions = () => {
     }
     const funs = (e)=> {
         e.preventDefault()
-        console.log(mult.current.value)
         if(updateOn)
             onUpdate()
         else
@@ -182,6 +182,7 @@ const Restrictions = () => {
                         debit.current.checked = true
                         money.current.value = res.data[0].debit
                     }
+                    console.log(res.data[0].status)
                     console.log(res.data[0].status)
                     mult.current.checked = res.data[0].status
                     setUpdateOn(true)
