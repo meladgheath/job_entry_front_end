@@ -20,7 +20,6 @@ const [type , setType ] = useState()
     const [amount, setAmount ] = useState('')
 
 
-    // const username = useBearStore((state) => state.username)
     const name = useBearStore((state)=> state.name)
     const username  = useBearStore((state) => state.username)
 
@@ -29,11 +28,9 @@ const [type , setType ] = useState()
         position: 'absolute',
         right: '1%',
         top:'1%',
-        // padding:'2%',
         fontFamily: 'Montserrat',
         fontSize: '16px',
         fontWeight: 'bold',
-        // border: '1px solid ',
     }
     const account_detail = {
         position: 'absolute',
@@ -66,7 +63,7 @@ const [type , setType ] = useState()
     const dates = {
         position: 'absolute',
         right: '40%',
-        top: '15%'
+        top: '5%'
     }
     const job_entry = {
         position: 'absolute',
@@ -238,9 +235,9 @@ const [type , setType ] = useState()
     const image_size = {
         position:'absolute',
         left:'1%',
-        top: '0%',
-        width: '25%',
-        height: '50%',
+        top: '2%',
+        width: '30%',
+        height: '60%',
     }
     const bb = {
         position: 'absolute',
@@ -328,7 +325,7 @@ const [totalNumber , setTotalNumber] = useState()
                             <div style={tird_squre}>
                                 <div style={user_name}>
 
-                                <p dir='rtl'> مستخدم النظام  :  {name}</p>
+                                <p dir='rtl'>  مستخدم النظام  :  {name}</p>
                         </div>
                         <div style={sign}>
                             {/*<p>{username}</p>*/}
@@ -341,13 +338,10 @@ const [totalNumber , setTotalNumber] = useState()
                         </div>
                         <hr style={crosLine}/>
                         <div style={money}>
-                            {/*<p>المبلغ</p>*/}
                             {tasData && tasData.map((item)=>
                             <p>{item.value}</p>
                             )}
-                            {/*<p>  { totalNumber}  </p>*/}
                         </div>
-
                         <hr style={crosLine2}/>
                         <div style={total}>
                             <p>{totalNumber}</p>
