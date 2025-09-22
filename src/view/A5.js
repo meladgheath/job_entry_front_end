@@ -109,7 +109,7 @@ const [type , setType ] = useState()
         bottom:'25%',
         textAlign: 'right',
         fontFamily: 'sans-serif',
-        fontSize: '13px',
+        fontSize: '12px',
         fontWeight: 'bold',
 
     }
@@ -119,7 +119,7 @@ const [type , setType ] = useState()
         left: '45%',
         top: '0%',
         fontFamily: 'Montserrat',
-        fontSize: '25px',
+        fontSize: '16px',
         fontWeight: 'bold',
         paddingTop: '2%',
 
@@ -149,7 +149,7 @@ const [type , setType ] = useState()
         position: 'absolute',
         left: '0%',
         right: '0%',
-        top: '14%',
+        top: '10%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -157,7 +157,7 @@ const [type , setType ] = useState()
         position: 'absolute',
         left: '0%',
         right: '0%',
-        bottom: '30%',
+        bottom: '32%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -329,7 +329,7 @@ const [totalNumber , setTotalNumber] = useState()
                         </div>
                         <div style={sign}>
                             {/*<p>{username}</p>*/}
-                            <p>........................................  : التــــوقيـــع  </p>
+                            <p>......................................  : التــــوقيـــع  </p>
                         </div>
                     </div>
                     <div style={fourth_squre}>
