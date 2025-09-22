@@ -67,12 +67,12 @@ const [type , setType ] = useState()
     }
     const job_entry = {
         position: 'absolute',
-        right: '2%',
-        top: '5%',
+        right: '15%',
+        top: '15%',
         fontFamily: 'sans-serif',
-        textAlign: 'justify',
+        textAlign: 'center',
         fontSize: '18px',
-        padding: '1%',
+        // padding: '1%',
     }
     const job_entry_id = {
         position: 'absolute',
@@ -127,7 +127,7 @@ const [type , setType ] = useState()
     const total = {
         position: 'absolute',
         right: '4%',
-        bottom:'20%',
+        bottom:'23.5%',
         fontFamily: 'Montserrat',
         fontSize: '18px',
         fontWeight: 'bold',
@@ -136,11 +136,11 @@ const [type , setType ] = useState()
         position: 'absolute',
         // right: '4%',
         // top: '25%',
-        bottom:'6%',
+        bottom:'3%',
         // right: '5%',
-        right: '2%',
+        right: '1%',
         fontFamily: 'Montserrat',
-        fontSize: '14px',
+        fontSize: '13px',
         textAlign: 'right'
         // fontWeight: 'bold',
     }
@@ -157,7 +157,7 @@ const [type , setType ] = useState()
         position: 'absolute',
         left: '0%',
         right: '0%',
-        bottom: '28%',
+        bottom: '30%',
         // paddingTop: '2%',
         border: '1px solid ',
     }
@@ -176,7 +176,7 @@ const [type , setType ] = useState()
         position: 'absolute',
         right: '4%',
         top:'23%',
-        width: '50%',
+        width: '50.5%',
         height: '59%',
         padding:'5%',
         border: '1px solid ',
@@ -319,7 +319,7 @@ const [totalNumber , setTotalNumber] = useState()
                     </div>
                     <div style={second_squre}>
                                 <div style={job_entry}>
-                                    <p dir='rtl'>{data[0].name}</p>
+                                    <p style={{whiteSpace: "pre-line"}}>{data[0].name}</p>
                                 </div>
                             </div>
                             <div style={tird_squre}>
